@@ -1,14 +1,11 @@
 import React from "react"; 
 import { Switch, Route } from "react-router-dom";
-// import HomePageContainer from "./Home/HomePageContainer";
-import HomePage from "./Home/HomePage";
+import HomePageContainer from "./Home/HomePageContainer";
 
-// const App = ({store}) => {
-const App = props => {
+const App = () => {
   return (
     <Switch>
-      {/* <Route exact path="/" component={HomePageContainer} /> */}
-      <Route exact path="/" component={HomePage} />
+      <Route exact path="/" component={HomePageContainer} />
     </Switch>
   );
 }

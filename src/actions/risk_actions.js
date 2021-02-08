@@ -1,4 +1,4 @@
-export const receiveRiskLevel = level => ({
+export const setRiskLevel = level => ({
     type: level
 });
 
