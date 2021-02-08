@@ -3,4 +3,13 @@
     width: 100%;
     background-color: aquamarine;
     height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.navbar__home { 
+    width: 1em;
+    height: 1em;
+    background-color: white;
 }

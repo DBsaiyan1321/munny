@@ -1,23 +1,26 @@
 import React from "react"; 
 import Nav from "../Nav/Nav";
+import Button from "../ReusableComponents/Button";
+import "./HomePage.css";
+import { riskLevels } from "../../util/riskLevels";
+import GridRow from "../ReusableComponents/GridRow";
 
 const HomePage = props => { 
-    console.log(props.state);
-    console.log(props.risk);
+    const levels = [1,2,3,4,5,6,7,8,9,10];
     return (
         <>
             <Nav />
             <div>
-                <button onClick={() => props.setRiskLevel(1)}>1</button>
-                <button onClick={() => props.setRiskLevel(2)}>2</button>
-                <button onClick={() => props.setRiskLevel(3)}>3</button>
-                <button onClick={() => props.setRiskLevel(4)}>4</button>
-                <button onClick={() => props.setRiskLevel(5)}>5</button>
-                <button onClick={() => props.setRiskLevel(6)}>6</button>
-                <button onClick={() => props.setRiskLevel(7)}>7</button>
-                <button onClick={() => props.setRiskLevel(8)}>8</button>
-                <button onClick={() => props.setRiskLevel(9)}>9</button>
-                <button onClick={() => props.setRiskLevel(10)}>10</button>
+                {levels.map(level => { 
+                    return <Button key={level} onClick={() => props.setRiskLevel(level)} text={level} selected={level === props.risk.level} />
+                })}
+                <Button onClick={() => window.location.href = "/#/calculator"} text="Continue" />
+            </div>
+            <div className="grid-container">
+                <GridRow info={{ level: "Risk", bonds: "Bonds %", largeCap: "Large Cap %", midCap: "Mid Cap %", foreign: "Foreign %", smallCap: "Small Cap %"}} />
+                {levels.map(level => { 
+                    return <GridRow key={level} info={riskLevels[level]} />
+                })}
             </div>
         </>
     )
