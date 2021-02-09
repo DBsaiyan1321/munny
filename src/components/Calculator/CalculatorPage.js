@@ -105,3 +105,63 @@ const isPositive = number => number > 0;
 const isNegative = number => number < 0;
 
 // Zero is neither positive nor negative.
+
+// Problem: Given differences and corresponding category names, find the recommended 
+// transfers to balance everything out. It should be the minimum amount of transfers possible.
+const findMinimumTransfers = () => { 
+};
+
+// Example 1-
+// {
+//     bonds: -200,
+//     largeCap: -150, 
+//     midCap: 50, 
+//     foreign: 100, 
+//     smallCap: 200
+// }
+// Answer: 
+// • Transfer $200 from Bonds to Small Cap.
+// • Transfer $100 from Large Cap to Foreign.
+// • Transfer $50 from Large Cap to Mid Cap.
+
+// Example 2- 
+// {
+//     bonds: -200,
+//     largeCap: -149,
+//     midCap: 235,
+//     foreign: 106, 
+//     smallCap: 8
+// }
+// Answer: 
+// • Transfer $106 from Large Cap to Foreign.
+// • Transfer $8 from Large Cap to Small Cap.
+// • Transfer $35 from Large Cap to Mid Cap.
+// • Transfer $200 from Bonds to Mid Cap.
+
+// Right off the bat, I notice that the amount that we are down is the same amount we are up. What I mean is that we
+// are a total of 350 down in bonds and largeCap then 350 up in the rest of the categories. 
+
+// If I order the ups from smallest to largest, then do the same for the downs, it's easy to calculate. 
+
+// Example 2-
+// ups = [8,106,235]
+// downs = [149, 200] // We don't consider them negative
+// Move backwards through both and compare
+// 235 - 200 = 35. So we know we can transfer 200 from bonds to midCap
+
+// Now the arrays look like
+// ups = [8,106,35]
+// downs = [149]
+// 149 - 35. We know we can transfer the rest of our largeCap to midCap
+
+// ups = [8,106]
+// downs = [114]
+// 114 - 106. We can transfer 106 from largecap to foreign.
+
+// ups = [8]
+// downs = [8]
+// 8 - 8. We can transfer 8 from largecap to smallcap
+
+// downs means we need to go down in those account because we have too much.
+// ups means we need to go up in those accounts because we don't have enough
+
