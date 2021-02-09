@@ -1,8 +1,18 @@
-.grid-container { 
+/* .grid-container { 
         font-size: 24px;
     display: grid;
     grid-template-rows: repeat(11, 1.5em);
     width: fit-content;
+    border-radius: 24px;
+    background-color: blueviolet;
+    padding: 20px;
+} */
+
+.flexbox { 
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    font-size: 24px;
     border-radius: 24px;
     background-color: blueviolet;
     padding: 20px;
