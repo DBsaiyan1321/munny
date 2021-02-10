@@ -108,22 +108,9 @@ const getTotal = inputsObject => {
     return total;
 };
 
-const calculateNewAmount = (total, percentage) => { 
-    return total * (percentage / 100);
-};
+const calculateNewAmount = (total, percentage) => total * (percentage / 100);
 
-const calculateDifference = (amount, expected) => { 
-    const difference = amount - expected;
-
-    return difference;
-    // if (isPositive(difference)) { 
-
-    // } else if (isNegative(difference)) { 
-
-    // } else { 
-    //     return difference
-    // }
-};
+const calculateDifference = (amount, expected) => amount - expected;
 
 const isPositive = number => number > 0;
 
@@ -134,7 +121,6 @@ const isNegative = number => number < 0;
 // Problem: Given differences and corresponding category names, find the recommended 
 // transfers to balance everything out. It should be the minimum amount of transfers possible.
 const findMinimumTransfers = differences => { 
-    debugger
     const words = { 
         bonds: "Bonds",
         midCap: "Mid Cap",
@@ -152,13 +138,10 @@ const findMinimumTransfers = differences => {
 
     arr.sort((a,b) => a.val - b.val);
 
-    console.log(arr);
     let i = 0;
     let j = arr.length - 1;
     
-    // [-200, -150, 50, 100, 200]
     while (i < j) {
-        // debugger
         const sum = arr[i].val + arr[j].val;
         if (sum > 0) {
             arr[j].val = sum;

@@ -1,16 +1,18 @@
 import React, { useEffect, useRef } from "react"; 
 import Chart from 'chart.js';
+import "chartjs-plugin-labels";
 
 const DoughnutChart = props => { 
     const chartRef = useRef();
 
     useEffect(() => { 
+        console.log("chart");
         const myChartRef = chartRef.current.getContext("2d");
 
         new Chart(myChartRef, {
             type: 'doughnut',
             data: {
-                // labels: props.labels,
+                labels: props.labels,
                 datasets: [{
                     label: '# of Votes',
                     data: props.data,
@@ -33,13 +35,25 @@ const DoughnutChart = props => {
                     borderWidth: 1
                 }]
             },
-            // options: {
-                
-            // }
+            options: {
+                events: [],
+                plugins: {
+                    labels: [
+                        {
+                            render: 'label',
+                            fontColor: 'black'
+                        },
+                        {
+                            render: 'percentage',
+                            position: 'outside'
+                        } 
+                    ]
+                }
+            }
         })
     }, [props.data]); 
 
-    return <canvas id="myChart" width="200" height="200" ref={chartRef}></canvas>
+    return <div style={{width: "90vw"}}><canvas id="myChart" width="200" height="200" ref={chartRef}></canvas></div>
 };
 
 export default DoughnutChart;
