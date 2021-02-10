@@ -3,11 +3,11 @@ import "./CalculatorPage.css";
 import Nav from "../Nav/Nav";
 
 const CalculatorPage = ({ state, receiveInputs }) => { 
-    const [bonds, setBonds] = useState(state.calculator.bonds || 0);
-    const [midCap, setMidCap] = useState(state.calculator.midCap || 0);
-    const [largeCap, setLargeCap] = useState(state.calculator.largeCap || 0);
-    const [foreign, setForeign] = useState(state.calculator.foreign || 0);
-    const [smallCap, setSmallCap] = useState(state.calculator.smallCap || 0);
+    const [bonds, setBonds] = useState(state.calculator.bonds || 20);
+    const [midCap, setMidCap] = useState(state.calculator.midCap || 20);
+    const [largeCap, setLargeCap] = useState(state.calculator.largeCap || 20);
+    const [foreign, setForeign] = useState(state.calculator.foreign || 20);
+    const [smallCap, setSmallCap] = useState(state.calculator.smallCap || 20);
 
     let inputs = {
         bonds,
@@ -32,18 +32,37 @@ const CalculatorPage = ({ state, receiveInputs }) => {
         midCap: calculateDifference(state.calculator.midCap, newAmounts.midCap),
         largeCap: calculateDifference(state.calculator.largeCap, newAmounts.largeCap),
         foreign: calculateDifference(state.calculator.foreign, newAmounts.foreign),
-        smallCap: calculateDifference(state.calculator.foreign, newAmounts.smallCap)
+        smallCap: calculateDifference(state.calculator.smallCap, newAmounts.smallCap)
     };
+
+    let transfers = [];
+    if ("bonds" in differences) transfers = findMinimumTransfers(differences);
 
     return (
         <>
             <Nav />
             <div>CalculatorPage</div>
-            <input onChange={e => setBonds(e.currentTarget.value)} value={bonds} placeholder="bonds" />
+
+            <label>
+                Bonds
+                <input onChange={e => setBonds(e.currentTarget.value)} value={bonds} placeholder="bonds" />
+            </label>
+            <label>
+                Mid Cap 
             <input onChange={e => setMidCap(e.currentTarget.value)} value={midCap} placeholder="midCap" />
+            </label>
+            <label>
+                Large Cap 
             <input onChange={e => setLargeCap(e.currentTarget.value)} value={largeCap} placeholder="LargeCap" />
-            <input onChange={e => setForeign(e.currentTarget.value)} value={foreign} placeholder="foreign" />
-            <input onChange={e => setSmallCap(e.currentTarget.value)} value={smallCap} placeholder="SmallCap" />
+            </label>
+            <label>
+                Foreign
+                <input onChange={e => setForeign(e.currentTarget.value)} value={foreign} placeholder="foreign" />
+            </label>
+            <label> 
+                Small Cap
+                <input onChange={e => setSmallCap(e.currentTarget.value)} value={smallCap} placeholder="SmallCap" />
+            </label>
             <button onClick={() => receiveInputs(inputs)}>Calculate</button>
 
             { "level" in state.risk && Object.keys(state.calculator).length > 0 ? <>
@@ -68,6 +87,12 @@ const CalculatorPage = ({ state, receiveInputs }) => {
                 <p>foreign: {differences.foreign}</p>
                 <p>smallCap: {differences.smallCap}</p>
             </> : null
+            }
+
+            <div className="gutter"></div>
+
+            { 
+                transfers.map((transfer, i) => <p key={i}>{transfer}</p>) 
             }
         </>
     )
@@ -108,7 +133,48 @@ const isNegative = number => number < 0;
 
 // Problem: Given differences and corresponding category names, find the recommended 
 // transfers to balance everything out. It should be the minimum amount of transfers possible.
-const findMinimumTransfers = () => { 
+const findMinimumTransfers = differences => { 
+    debugger
+    const words = { 
+        bonds: "Bonds",
+        midCap: "Mid Cap",
+        largeCap: "Large Cap",
+        foreign: "Foreign",
+        smallCap: "Small Cap"
+    };
+
+    const returnVal = [];
+
+    const arr = []
+    for (const difference in differences) { 
+        arr.push({ cat: difference, val: differences[difference] });
+    }
+
+    arr.sort((a,b) => a.val - b.val);
+
+    console.log(arr);
+    let i = 0;
+    let j = arr.length - 1;
+    
+    // [-200, -150, 50, 100, 200]
+    while (i < j) {
+        // debugger
+        const sum = arr[i].val + arr[j].val;
+        if (sum > 0) {
+            arr[j].val = sum;
+            returnVal.push(`Transfer $${Math.abs(arr[i].val)} from ${words[arr[j].cat]} to ${words[arr[i].cat]}`);
+            i++;
+        } else if (sum < 0) {
+            arr[i].val = sum
+            returnVal.push(`Transfer $${Math.abs(arr[j].val)} from ${words[arr[j].cat]} to ${words[arr[i].cat]}`);
+            j--
+        } else {
+            returnVal.push(`Transfer $${Math.abs(arr[j].val)} from ${words[arr[j].cat]} to ${words[arr[i].cat]}`);
+            i++
+            j--
+        }
+    }
+    return returnVal;
 };
 
 // Example 1-
@@ -124,6 +190,17 @@ const findMinimumTransfers = () => {
 // • Transfer $100 from Large Cap to Foreign.
 // • Transfer $50 from Large Cap to Mid Cap.
 
+// [-200, -150]
+// [50,100,200]
+
+// [-150]
+// [50,100]
+
+// [-50]
+// [50]
+//     i     i        j      j
+// [-200, -150, 50, 100, 200]
+
 // Example 2- 
 // {
 //     bonds: -200,
@@ -137,6 +214,28 @@ const findMinimumTransfers = () => {
 // • Transfer $8 from Large Cap to Small Cap.
 // • Transfer $35 from Large Cap to Mid Cap.
 // • Transfer $200 from Bonds to Mid Cap.
+// i                     j         i           j
+// [-200, -149, 8, 106, 235] => [-149, 8, 106, 35]
+// Transfer 200 from Bonds to Mid Cap
+
+// if ((arr[i] + arr[j]) > 0) { 
+//     arr[j] = (arr[i] + arr[j]) 
+//     push statement into output
+//     "array[i].cat owes array[j].cat arr[i]"
+//     i++
+// } else if ((arr[i] + arr[j]) < 0) { 
+//     arr[j] = (arr[i] + arr[j])
+//     "array[i].cat owes array[j].cat arr[j]"
+//     push statement into output
+//     j--
+// } else { 
+//     push statement into output
+//     "array[i].cat owes array[j].cat array[i]"
+//     i++
+//     j++
+// }
+
+// [-149, 8, 106, 35]
 
 // Right off the bat, I notice that the amount that we are down is the same amount we are up. What I mean is that we
 // are a total of 350 down in bonds and largeCap then 350 up in the rest of the categories. 
@@ -165,3 +264,5 @@ const findMinimumTransfers = () => {
 // downs means we need to go down in those account because we have too much.
 // ups means we need to go up in those accounts because we don't have enough
 
+// I guess a min heap and max heap would work in this case too.
+// Maybe I just need to sort one array, then have a pointer on one end and a pointer on the other.
