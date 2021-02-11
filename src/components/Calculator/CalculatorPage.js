@@ -1,6 +1,8 @@
 import React, { useState } from "react"; 
 import "./CalculatorPage.css";
 import Nav from "../Nav/Nav";
+import DropDisplay from "../ReusableComponents/DropDisplay";
+import Button from "../ReusableComponents/Button";
 
 const CalculatorPage = ({ state, receiveInputs }) => { 
     const [bonds, setBonds] = useState(state.calculator.bonds || 20);
@@ -41,59 +43,71 @@ const CalculatorPage = ({ state, receiveInputs }) => {
     return (
         <>
             <Nav />
-            <div>CalculatorPage</div>
+            <div className="calculator-page">
+                
+                <h1>Calculator Page</h1>
 
-            <label>
-                Bonds
-                <input onChange={e => setBonds(e.currentTarget.value)} value={bonds} placeholder="bonds" />
-            </label>
-            <label>
-                Mid Cap 
-            <input onChange={e => setMidCap(e.currentTarget.value)} value={midCap} placeholder="midCap" />
-            </label>
-            <label>
-                Large Cap 
-            <input onChange={e => setLargeCap(e.currentTarget.value)} value={largeCap} placeholder="LargeCap" />
-            </label>
-            <label>
-                Foreign
-                <input onChange={e => setForeign(e.currentTarget.value)} value={foreign} placeholder="foreign" />
-            </label>
-            <label> 
-                Small Cap
-                <input onChange={e => setSmallCap(e.currentTarget.value)} value={smallCap} placeholder="SmallCap" />
-            </label>
-            <button onClick={() => receiveInputs(inputs)}>Calculate</button>
+                <DropDisplay title="Current Amounts"  selected> 
+                    <div className="current-amounts">
+                        <label>
+                            Bonds: $
+                            <input onChange={e => setBonds(e.currentTarget.value)} value={bonds} placeholder="bonds" />
+                        </label>
+                        <label>
+                            Mid Cap: $ 
+                        <input onChange={e => setMidCap(e.currentTarget.value)} value={midCap} placeholder="midCap" />
+                        </label>
+                        <label>
+                            Large Cap: $ 
+                        <input onChange={e => setLargeCap(e.currentTarget.value)} value={largeCap} placeholder="LargeCap" />
+                        </label>
+                        <label>
+                            Foreign: $
+                            <input onChange={e => setForeign(e.currentTarget.value)} value={foreign} placeholder="foreign" />
+                        </label>
+                        <label> 
+                            Small Cap: $
+                            <input onChange={e => setSmallCap(e.currentTarget.value)} value={smallCap} placeholder="SmallCap" />
+                        </label>
+                    </div>
+                </DropDisplay>
 
-            { "level" in state.risk && Object.keys(state.calculator).length > 0 ? <>
-                <h1 className="title">Total</h1>
-                <p>{total}</p>
+                { "level" in state.risk && Object.keys(state.calculator).length > 0 ? <>
+                    <DropDisplay title="Total" selected>
+                        <p>{total}</p>
+                    </DropDisplay>
+                    
 
-                <div className="gutter"></div>
+                    <div className="gutter"></div>
 
-                <h1 className="title">New Amounts</h1>
-                <p>Bonds: {newAmounts.bonds}</p>
-                <p>Mid Cap: {newAmounts.midCap}</p>
-                <p>Large Cap: {newAmounts.largeCap}</p>
-                <p>Foreign: {newAmounts.foreign}</p>
-                <p>Samll Cap: {newAmounts.smallCap}</p>
+                    <DropDisplay title="New Amounts" selected>
+                        <p>Bonds: {newAmounts.bonds}</p>
+                        <p>Mid Cap: {newAmounts.midCap}</p>
+                        <p>Large Cap: {newAmounts.largeCap}</p>
+                        <p>Foreign: {newAmounts.foreign}</p>
+                        <p>Samll Cap: {newAmounts.smallCap}</p>
+                    </DropDisplay>
 
-                <div className="gutter"></div>
+                    <div className="gutter"></div>
 
-                <h1 className="title">Differences</h1>
-                <p>Bonds: {differences.bonds}</p>
-                <p>midCap: {differences.midCap}</p>
-                <p>largeCap: {differences.largeCap}</p>
-                <p>foreign: {differences.foreign}</p>
-                <p>smallCap: {differences.smallCap}</p>
-            </> : null
-            }
+                    <DropDisplay title="Differences" selected>
+                        <p>Bonds: {differences.bonds}</p>
+                        <p>midCap: {differences.midCap}</p>
+                        <p>largeCap: {differences.largeCap}</p>
+                        <p>foreign: {differences.foreign}</p>
+                        <p>smallCap: {differences.smallCap}</p>
+                    </DropDisplay>
 
-            <div className="gutter"></div>
+                    <div className="gutter"></div>
 
-            { 
-                transfers.map((transfer, i) => <p key={i}>{transfer}</p>) 
-            }
+                    <DropDisplay title="Recommended Transfers" selected>
+                        { transfers.map((transfer, i) => <p key={i}>{transfer}</p>) }
+                    </DropDisplay>
+                </> : null
+                }
+
+                <Button onClick={() => receiveInputs(inputs)} text="Calculate" />
+            </div>
         </>
     )
 };
@@ -105,12 +119,12 @@ const getTotal = inputsObject => {
     for (const input in inputsObject) { 
         total += parseInt(inputsObject[input]);
     }
-    return total;
+    return total.toFixed(2);
 };
 
-const calculateNewAmount = (total, percentage) => total * (percentage / 100);
+const calculateNewAmount = (total, percentage) => (total * (percentage / 100)).toFixed(2);
 
-const calculateDifference = (amount, expected) => amount - expected;
+const calculateDifference = (amount, expected) => (amount - expected).toFixed(2);
 
 const isPositive = number => number > 0;
 
@@ -145,14 +159,14 @@ const findMinimumTransfers = differences => {
         const sum = arr[i].val + arr[j].val;
         if (sum > 0) {
             arr[j].val = sum;
-            returnVal.push(`Transfer $${Math.abs(arr[i].val)} from ${words[arr[j].cat]} to ${words[arr[i].cat]}`);
+            returnVal.push(`Transfer $${(Math.abs(arr[i].val)).toFixed(2)} from ${words[arr[j].cat]} to ${words[arr[i].cat]}`);
             i++;
         } else if (sum < 0) {
             arr[i].val = sum
-            returnVal.push(`Transfer $${Math.abs(arr[j].val)} from ${words[arr[j].cat]} to ${words[arr[i].cat]}`);
+            returnVal.push(`Transfer $${(Math.abs(arr[j].val)).toFixed(2)} from ${words[arr[j].cat]} to ${words[arr[i].cat]}`);
             j--
         } else {
-            returnVal.push(`Transfer $${Math.abs(arr[j].val)} from ${words[arr[j].cat]} to ${words[arr[i].cat]}`);
+            returnVal.push(`Transfer $${(Math.abs(arr[j].val)).toFixed(2)} from ${words[arr[j].cat]} to ${words[arr[i].cat]}`);
             i++
             j--
         }

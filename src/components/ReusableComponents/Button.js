@@ -1,10 +1,10 @@
 import React from "react";
 import "./Button.css";
 
-const Button = ({ onClick, text, selected, textStyle, buttonStyle }) => { 
+const Button = ({ onClick, text, textStyle, buttonStyle }) => { 
     return (
         <button 
-            className={selected ? "risk-button risk-button--selected" : "risk-button"}
+            className={"risk-button"}
             // style={buttonStyle, textStyle} 
             onClick={onClick}
         >

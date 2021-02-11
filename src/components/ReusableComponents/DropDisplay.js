@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import "./DropDisplay.css";
 
-const DropDisplay = ({ options, title, children, selected }) => { 
+const DropDisplay = ({ title, children, selected }) => { 
     const [toggle, setToggle] = useState(selected ? "toggle" : null);
     
     const changeMenu = () => {
@@ -15,7 +16,10 @@ const DropDisplay = ({ options, title, children, selected }) => {
     return (
         <>
             <div className={`drop-display ${toggle}`}>
-                <p className="drop-display__title" onClick={changeMenu}>{`${title} ${toggle ? "v" : ">"}`}</p>
+                <div className="drop-display__title" onClick={changeMenu}>
+                    <p>{title}</p>  
+                    {toggle ? <TiArrowSortedUp /> : <TiArrowSortedDown /> }
+                </div>
                 <div className="drop-display-info">
                     {children}
                 </div>

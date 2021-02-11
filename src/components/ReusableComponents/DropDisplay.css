@@ -9,6 +9,8 @@
     width: 100%;
     border-radius: 10px;
     padding: 1em;
+    display: flex;
+    justify-content: space-between;
 }
 
 .drop-display-info { 

@@ -1,10 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Nav.css";
+import { GiMoneyStack } from "react-icons/gi";
 
 const Nav = () => { 
     return (
         <nav className="navbar">
-            <div className="navbar__home"></div>
+            <Link to="/"><GiMoneyStack className="navbar__logo" /></Link>
         </nav>
     )
 };

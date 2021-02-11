@@ -8,8 +8,8 @@
     justify-content: space-around;
 }
 
-.navbar__home { 
+.navbar__logo { 
     width: 1em;
     height: 1em;
-    background-color: white;
+    color: white;
 }
