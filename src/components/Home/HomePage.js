@@ -21,9 +21,10 @@ const HomePage = props => {
         <>
             <Nav />
             <div className="home-page"> 
-                <p>Please Select A Risk Level For Your Investment Portfolio. 1 is low, 10 is high.</p>
+                <p className="home-page__header">Please Select A Risk Level For Your Investment Portfolio. 1 is low, 10 is high.</p>
                 <SelectMenu options={levels} onClick={level => props.setRiskLevel(level)} />
-
+                <Button text={ doughnut ? " Sheet" : "Doughnut"} onClick={() => setDoughnut(!doughnut)} />
+                <Link to="/calculator"><Button text="Continue" /></Link>
                 {!doughnut ? (
                     <div className="grid-container">
                         {levels.map(level => {
@@ -43,9 +44,6 @@ const HomePage = props => {
                     </div>
                 ) : <DoughnutChart data={chartData} labels={chartLabels} />
                 }
-
-                <button onClick={() => setDoughnut(!doughnut)}>{doughnut ? "Sheet" : "Doughnut"}</button>
-                <Link to="/calculator"><Button text="Continue" /></Link>
             </div>
         </>
     )

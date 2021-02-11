@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import "./DropDisplay.css";
 
 const DropDisplay = ({ title, children, selected, titleClasses, bodyClasses }) => { 
     const [toggle, setToggle] = useState(selected ? "toggle" : "");
-    
+    console.log(selected, toggle);
+
+    useEffect(() => { 
+        if (selected && toggle === "") setToggle("toggle");
+    }, [selected])
+
     const changeMenu = () => {
         if (toggle === "toggle") {
             setToggle("");
