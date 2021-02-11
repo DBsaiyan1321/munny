@@ -15,6 +15,10 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.risk-level-sheet { 
+    list-style: none;
+}
+
 .flexbox { 
     display: flex;
     flex-direction: column;

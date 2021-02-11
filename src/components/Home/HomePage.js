@@ -20,6 +20,29 @@ const HomePage = props => {
         <>
             <Nav />
             <div className="home-page"> 
+                <p>Please Select A Risk Level For Your Investment Portfolio. 1 is low, 10 is high.</p>
+                <SelectMenu options={levels} onClick={level => props.setRiskLevel(level)} />
+
+                {!doughnut ? (
+                    <>
+                        {levels.map(level => {
+                            return (
+                                <DropDisplay title={`Risk Level ${level}`} key={level} selected={level === props.state.risk.level}>
+                                    <ul className="risk-level-sheet">
+                                        <li>Category | Percentage</li>
+                                        <li>Bonds: {riskLevels[level].bonds}%</li>
+                                        <li>Large Cap: {riskLevels[level].largeCap}%</li>
+                                        <li>Mid Cap: {riskLevels[level].midCap}%</li>
+                                        <li>Foreign: {riskLevels[level].foreign}%</li>
+                                        <li>Small Cap: {riskLevels[level].smallCap}%</li>
+                                    </ul>
+                                </DropDisplay>
+                            )
+                        })}
+                    </>
+                ) : <DoughnutChart data={chartData} labels={chartLabels} />
+                }
+
                 <button onClick={() => setDoughnut(!doughnut)}>{doughnut ? "Sheet" : "Doughnut"}</button>
                 <div>
                     {/* {levels.map(level => { 
@@ -27,30 +50,6 @@ const HomePage = props => {
                     })} */}
                     <Link to="/calculator"><Button text="Continue" /></Link>
                 </div>
-
-                <p>Please Select A Risk Level For Your Investment Portfolio. 1 is low, 10 is high</p>
-                <SelectMenu options={levels} onClick={level => props.setRiskLevel(level)} />
-
-                { !doughnut ? ( 
-                        <>
-                            {levels.map(level => {
-                                return ( 
-                                    <DropDisplay title={`Risk Level ${level}`} key={level}>
-                                        <ul>    
-                                            <li>Bonds: {riskLevels[level].bonds}%</li>
-                                            <li>Large Cap: {riskLevels[level].largeCap}%</li>
-                                            <li>Mid Cap: {riskLevels[level].midCap}%</li>
-                                            <li>Foreign: {riskLevels[level].foreign}%</li>
-                                            <li>Small Cap: {riskLevels[level].smallCap}%</li>
-                                        </ul>
-                                    </DropDisplay>
-                                )
-                            })}
-                        </>
-                    ) : <DoughnutChart data={chartData} labels={chartLabels} />
-                }
-
-
                 {/* <div className="grid-container">
                 { !doughnut ? <div className="flexbox">
                         <GridRow info={{ level: "Risk", bonds: "Bonds %", largeCap: "Large Cap %", midCap: "Mid Cap %", foreign: "Foreign %", smallCap: "Small Cap %" }} />
