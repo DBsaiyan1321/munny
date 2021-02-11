@@ -2,7 +2,7 @@
     font-size: 18px;
     padding: 1.5em;
     color: white;
-    background-color: #8d6fe8;
+    background-color: var(--primary-color);
     border: none;
     border-radius: 10px;
     margin: .5em;
@@ -12,6 +12,6 @@
 
 .risk-button--selected { 
     background-color: white;
-    color: #8d6fe8;
+    color: var(--primary-color);
 }
 

@@ -1,28 +1,40 @@
 .select-menu { 
-    width: fit-content;
-    background-color: aquamarine;
+    width: 15em;
+    height: fit-content;
+    position: relative;
 }
 
 .select-menu__selected { 
-    border: 1px solid black;
+    border-radius: 10px;
+    padding: 1em;
+    background-color: var(--secondary-color);
+    margin: .2em 0;
 }
 
 .select-list { 
     display: none;
+    list-style: none;
+    background-color: var(--secondary-color);
+    border-radius: 5px;
 }
 
 .select-list__item { 
-
+    padding: .25em;
+    color: black;
+    transition-duration: 250ms;
 }
 
 /* .select-menu:hover .select-list { 
     display: block;
 } */
 
-.toggle .select-list { 
-    display: block;
+.toggle .select-list {
+    display: block; 
+    position: absolute;
+    width: 100%;
 }
 
 .select-list__item:hover { 
-    background-color: azure;
+    background-color: var(--primary-color);
+    color: white;
 }

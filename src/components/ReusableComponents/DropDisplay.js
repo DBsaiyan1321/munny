@@ -14,18 +14,12 @@ const DropDisplay = ({ options, title, children }) => {
 
     return (
         <>
-            <div className={`drop-display ${toggle}`} onClick={changeMenu}>
-                <span className="drop-display__title">{title}</span>
-                {/* <ul className="drop-display-info">
-                    {
-                        options.map((option, i) => <li className="drop-display-info__item" key={i}>{option}</li>)
-                    }
-                </ul> */}
+            <div className={`drop-display ${toggle}`}>
+                <span className="drop-display__title" onClick={changeMenu}>{`${title} ${toggle ? "v" : ">"}`}</span>
                 <div className="drop-display-info">
                     {children}
                 </div>
             </div>
-            <p>oaeinrogaein</p>
         </>
     )
 };

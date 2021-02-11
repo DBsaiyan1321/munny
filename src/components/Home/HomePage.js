@@ -11,11 +11,6 @@ import DropDisplay from "../ReusableComponents/DropDisplay";
 
 const HomePage = props => { 
     const [doughnut, setDoughnut] = useState(false);
-    const renders = useRef(1);
-
-    useEffect(() => { 
-        renders.current = renders.current + 1;
-    })
 
     const levels = [1,2,3,4,5,6,7,8,9,10];
 
@@ -24,34 +19,47 @@ const HomePage = props => {
     return (
         <>
             <Nav />
-            <div>
-                {levels.map(level => { 
-                    return <Button key={level} onClick={() => props.setRiskLevel(level)} text={level} selected={level === props.risk.level} />
-                })}
-                <Link to="/calculator"><Button text="Continue" /></Link>
+            <div className="home-page"> 
+                <button onClick={() => setDoughnut(!doughnut)}>{doughnut ? "Sheet" : "Doughnut"}</button>
+                <div>
+                    {/* {levels.map(level => { 
+                        return <Button key={level} onClick={() => props.setRiskLevel(level)} text={level} selected={level === props.risk.level} />
+                    })} */}
+                    <Link to="/calculator"><Button text="Continue" /></Link>
+                </div>
+
+                <p>Please Select A Risk Level For Your Investment Portfolio. 1 is low, 10 is high</p>
+                <SelectMenu options={levels} onClick={level => props.setRiskLevel(level)} />
+
+                { !doughnut ? ( 
+                        <>
+                            {levels.map(level => {
+                                return ( 
+                                    <DropDisplay title={`Risk Level ${level}`} key={level}>
+                                        <ul>    
+                                            <li>Bonds: {riskLevels[level].bonds}%</li>
+                                            <li>Large Cap: {riskLevels[level].largeCap}%</li>
+                                            <li>Mid Cap: {riskLevels[level].midCap}%</li>
+                                            <li>Foreign: {riskLevels[level].foreign}%</li>
+                                            <li>Small Cap: {riskLevels[level].smallCap}%</li>
+                                        </ul>
+                                    </DropDisplay>
+                                )
+                            })}
+                        </>
+                    ) : <DoughnutChart data={chartData} labels={chartLabels} />
+                }
+
+
+                {/* <div className="grid-container">
+                { !doughnut ? <div className="flexbox">
+                        <GridRow info={{ level: "Risk", bonds: "Bonds %", largeCap: "Large Cap %", midCap: "Mid Cap %", foreign: "Foreign %", smallCap: "Small Cap %" }} />
+                        {levels.map(level => {
+                            return <GridRow key={level} info={riskLevels[level]} />
+                        })}
+                </div> : <DoughnutChart data={chartData} labels={chartLabels} />
+                } */}
             </div>
-
-            <SelectMenu options={levels} onClick={level => props.setRiskLevel(level)} />
-            { !doughnut ? ( 
-                <DropDisplay title={1}>
-                    {levels.map(level => {
-                        return <GridRow key={level} info={riskLevels[level]} />
-                    })}
-                </DropDisplay>
-                ) : <DoughnutChart data={chartData} labels={chartLabels} />
-            }
-
-
-            {/* <div className="grid-container"> */}
-            { !doughnut ? <div className="flexbox">
-                    <GridRow info={{ level: "Risk", bonds: "Bonds %", largeCap: "Large Cap %", midCap: "Mid Cap %", foreign: "Foreign %", smallCap: "Small Cap %" }} />
-                    {levels.map(level => {
-                        return <GridRow key={level} info={riskLevels[level]} />
-                    })}
-            </div> : <DoughnutChart data={chartData} labels={chartLabels} />
-            }
-            <button onClick={() => setDoughnut(!doughnut)}>{ doughnut ? "Sheet" : "Dougnut"}</button>
-            <div>{renders.current}</div>
         </>
     )
 };
