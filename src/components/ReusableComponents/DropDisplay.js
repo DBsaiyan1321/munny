@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import "./DropDisplay.css";
 
-const DropDisplay = ({ title, children, selected }) => { 
+const DropDisplay = ({ title, children, selected, titleClasses, bodyClasses }) => { 
     const [toggle, setToggle] = useState(selected ? "toggle" : "");
     
     const changeMenu = () => {
@@ -16,11 +16,11 @@ const DropDisplay = ({ title, children, selected }) => {
     return (
         <>
             <div className={`drop-display ${toggle}`}>
-                <div className="drop-display__title" onClick={changeMenu}>
+                <div className={`drop-display__title ${titleClasses}`} onClick={changeMenu}>
                     <p>{title}</p>  
                     {toggle ? <TiArrowSortedUp /> : <TiArrowSortedDown /> }
                 </div>
-                <div className="drop-display-info">
+                <div className={`drop-display-info ${bodyClasses}`}>
                     {children}
                 </div>
             </div>

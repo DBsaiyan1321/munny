@@ -31,6 +31,19 @@
     padding: 20px;
 }
 
+/* .hover { 
+    width: 100px;
+    height: 100px;
+    transition-duration: 1s;
+    background-color: lightgray;
+}
+
+.hover:hover { 
+    height: 1111px;
+} */
+
+
+
 @media only screen and (max-width: 768px) { 
     .grid-container { 
         grid-template-columns: repeat(2, auto);
