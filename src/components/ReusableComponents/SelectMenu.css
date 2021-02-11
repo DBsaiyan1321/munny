@@ -12,13 +12,22 @@
     border: 1px solid var(--primary-color);
     color: var(--primary-color);
     background-color: transparent;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 .select-list { 
     display: none;
-    list-style: none;
+    /* list-style: none;
     background-color: var(--secondary-color);
+    border-radius: 5px; */
+
+    list-style: none;
+    background-color: #ffffff;
+    border: 2px solid var(--primary-color);
     border-radius: 5px;
+    box-shadow: 0px 4px 4px #00000057;
 }
 
 .select-list__item { 

@@ -3,11 +3,11 @@ import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 import "./DropDisplay.css";
 
 const DropDisplay = ({ title, children, selected }) => { 
-    const [toggle, setToggle] = useState(selected ? "toggle" : null);
+    const [toggle, setToggle] = useState(selected ? "toggle" : "");
     
     const changeMenu = () => {
         if (toggle === "toggle") {
-            setToggle(null);
+            setToggle("");
         } else {
             setToggle("toggle");
         }

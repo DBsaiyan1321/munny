@@ -1,12 +1,8 @@
-/* .grid-container { 
-        font-size: 24px;
+.grid-container { 
     display: grid;
-    grid-template-rows: repeat(11, 1.5em);
-    width: fit-content;
-    border-radius: 24px;
-    background-color: blueviolet;
-    padding: 20px;
-} */
+    grid-template-rows: repeat(4, auto);
+    grid-template-columns: repeat(3, auto);
+}
 
 .home-page { 
     display: flex;
@@ -15,8 +11,14 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.risk-level-sheet-row--header { 
+    font-weight: 700;
+    border-bottom: 1px solid black;
+}
+
 .risk-level-sheet { 
     list-style: none;
+    padding: 0.5em;
 }
 
 .flexbox { 
@@ -27,4 +29,18 @@
     border-radius: 24px;
     background-color: blueviolet;
     padding: 20px;
+}
+
+@media only screen and (max-width: 768px) { 
+    .grid-container { 
+        grid-template-columns: repeat(2, auto);
+        grid-template-rows: repeat(5, auto);
+    }
+}
+
+@media only screen and (max-width: 548px) { 
+    .grid-container { 
+        grid-template-columns: auto;
+        grid-template-rows: repeat(10, auto);
+    }
 }

@@ -8,6 +8,7 @@ import GridRow from "../ReusableComponents/GridRow";
 import DoughnutChart from "../ReusableComponents/DoughnutChart";
 import SelectMenu from "../ReusableComponents/SelectMenu";
 import DropDisplay from "../ReusableComponents/DropDisplay";
+import RiskLevelSheetRow from "../ReusableComponents/RiskLevelSheetRow";
 
 const HomePage = props => { 
     const [doughnut, setDoughnut] = useState(false);
@@ -24,22 +25,46 @@ const HomePage = props => {
                 <SelectMenu options={levels} onClick={level => props.setRiskLevel(level)} />
 
                 {!doughnut ? (
-                    <>
+                    <div className="grid-container">
                         {levels.map(level => {
                             return (
                                 <DropDisplay title={`Risk Level ${level}`} key={level} selected={level === props.state.risk.level}>
                                     <ul className="risk-level-sheet">
-                                        <li>Category | Percentage</li>
-                                        <li>Bonds: {riskLevels[level].bonds}%</li>
-                                        <li>Large Cap: {riskLevels[level].largeCap}%</li>
-                                        <li>Mid Cap: {riskLevels[level].midCap}%</li>
-                                        <li>Foreign: {riskLevels[level].foreign}%</li>
-                                        <li>Small Cap: {riskLevels[level].smallCap}%</li>
+                                        <RiskLevelSheetRow category="Category" percentage="Percentage" style="risk-level-sheet-row--header" /> 
+                                        <RiskLevelSheetRow category="Bonds" percentage={riskLevels[level].bonds} /> 
+                                        <RiskLevelSheetRow category="Large Cap" percentage={riskLevels[level].largeCap} /> 
+                                        <RiskLevelSheetRow category="Mid Cap" percentage={riskLevels[level].midCap} /> 
+                                        <RiskLevelSheetRow category="Foreign" percentage={riskLevels[level].foreign} /> 
+                                        <RiskLevelSheetRow category="Small Cap" percentage={riskLevels[level].smallCap} /> 
+                                        {/* <li className="risk-level-sheet__row">
+                                            <p>Category</p>
+                                            <p>Percentage</p>
+                                        </li>
+                                        <li className="risk-level-sheet__row">
+                                            <p>Bonds:</p>
+                                            <p>{riskLevels[level].bonds}</p>
+                                        </li>
+                                        <li className="risk-level-sheet__row">
+                                            <p>Large Cap:</p> 
+                                            <p>{riskLevels[level].largeCap}</p>
+                                        </li>
+                                        <li className="risk-level-sheet__row">
+                                            <p>Mid Cap:</p> 
+                                            <p>{riskLevels[level].midCap}</p>
+                                        </li>
+                                        <li className="risk-level-sheet__row">
+                                            <p>Foreign:</p>
+                                            <p>{riskLevels[level].foreign}</p>
+                                        </li>
+                                        <li className="risk-level-sheet__row">
+                                            <p>Small Cap:</p> 
+                                            <p>{riskLevels[level].smallCap}</p>
+                                        </li> */}
                                     </ul>
                                 </DropDisplay>
                             )
                         })}
-                    </>
+                    </div>
                 ) : <DoughnutChart data={chartData} labels={chartLabels} />
                 }
 
