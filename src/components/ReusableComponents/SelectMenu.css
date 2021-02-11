@@ -1,0 +1,28 @@
+.select-menu { 
+    width: fit-content;
+    background-color: aquamarine;
+}
+
+.select-menu__selected { 
+    border: 1px solid black;
+}
+
+.select-list { 
+    display: none;
+}
+
+.select-list__item { 
+
+}
+
+/* .select-menu:hover .select-list { 
+    display: block;
+} */
+
+.toggle .select-list { 
+    display: block;
+}
+
+.select-list__item:hover { 
+    background-color: azure;
+}

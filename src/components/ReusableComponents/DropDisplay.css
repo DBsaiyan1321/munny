@@ -1,0 +1,28 @@
+.drop-display { 
+    width: fit-content;
+    background-color: aquamarine;
+}
+
+.drop-display__title { 
+    border: 1px solid black;
+}
+
+.drop-display-info { 
+    display: none;
+}
+
+.drop-display-info__item { 
+
+}
+
+/* .drop-display:hover .drop-display-info { 
+    display: block;
+} */
+
+.toggle .drop-display-info { 
+    display: block;
+}
+
+.drop-display-info__item:hover { 
+    background-color: azure;
+}

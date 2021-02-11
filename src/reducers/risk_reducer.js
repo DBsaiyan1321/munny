@@ -1,5 +1,9 @@
 import { riskLevels } from "../util/riskLevels";
 
+// const defaultState = {
+//     selectLevel: 20
+// };
+
 const riskReducer = (initialState = {}, action) => { 
     Object.freeze(initialState); 
     switch (action.type) {
