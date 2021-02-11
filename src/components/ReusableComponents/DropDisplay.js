@@ -4,7 +4,6 @@ import "./DropDisplay.css";
 
 const DropDisplay = ({ title, children, selected, titleClasses, bodyClasses }) => { 
     const [toggle, setToggle] = useState(selected ? "toggle" : "");
-    console.log(selected, toggle);
 
     useEffect(() => { 
         if (selected && toggle === "") setToggle("toggle");

@@ -4,7 +4,6 @@ import Button from "../ReusableComponents/Button";
 import { Link } from "react-router-dom"
 import "./HomePage.css";
 import { riskLevels } from "../../util/riskLevels";
-import GridRow from "../ReusableComponents/GridRow";
 import DoughnutChart from "../ReusableComponents/DoughnutChart";
 import SelectMenu from "../ReusableComponents/SelectMenu";
 import DropDisplay from "../ReusableComponents/DropDisplay";

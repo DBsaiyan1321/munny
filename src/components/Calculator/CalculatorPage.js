@@ -5,6 +5,7 @@ import DropDisplay from "../ReusableComponents/DropDisplay";
 import Button from "../ReusableComponents/Button";
 import RiskLevelSheetRow from "../ReusableComponents/RiskLevelSheetRow";
 import { getTotal, calculateNewAmount, calculateDifference, isNegative, findMinimumTransfers } from "../../util/calculatorUtil";
+import { Redirect } from "react-router-dom";
 
 const CalculatorPage = ({ state, receiveInputs }) => { 
     const [bonds, setBonds] = useState(state.calculator.bonds || 20);
@@ -44,14 +45,14 @@ const CalculatorPage = ({ state, receiveInputs }) => {
 
     const validateInputs = () => {
         for (const input in inputs) {
-            const value = parseFloat(inputs[input]);
+            const value = parseFloat(inputs[input] * 1);
             if (isNaN(value) || isNegative(value)) return false;
         }
 
         return true;
     }
 
-    return (
+    return !state.risk.level ? <Redirect to="/" /> : (
         <>
             <Nav />
             <div className="calculator-page">

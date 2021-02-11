@@ -46,13 +46,15 @@ export const findMinimumTransfers = differences => {
             returnVal.push(`Transfer $${(Math.abs(arr[i].val)).toFixed(2)} from ${words[arr[j].cat]} to ${words[arr[i].cat]}`);
             i++;
         } else if (sum < 0) {
-            arr[i].val = sum
+            arr[i].val = sum;
             returnVal.push(`Transfer $${(Math.abs(arr[j].val)).toFixed(2)} from ${words[arr[j].cat]} to ${words[arr[i].cat]}`);
-            j--
+            j--;
         } else {
-            returnVal.push(`Transfer $${(Math.abs(arr[j].val)).toFixed(2)} from ${words[arr[j].cat]} to ${words[arr[i].cat]}`);
-            i++
-            j--
+            if (Math.abs(arr[j].val) !== 0) { 
+                returnVal.push(`Transfer $${(Math.abs(arr[j].val)).toFixed(2)} from ${words[arr[j].cat]} to ${words[arr[i].cat]}`)
+            } 
+            i++;
+            j--;
         }
     }
     return returnVal;

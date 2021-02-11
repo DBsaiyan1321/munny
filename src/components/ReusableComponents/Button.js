@@ -5,7 +5,6 @@ const Button = ({ onClick, text, textStyle, buttonStyle }) => {
     return (
         <button 
             className={"risk-button"}
-            // style={buttonStyle, textStyle} 
             onClick={onClick}
         >
             {text}

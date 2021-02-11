@@ -6,7 +6,6 @@ const DoughnutChart = props => {
     const chartRef = useRef();
 
     useEffect(() => { 
-        console.log("chart");
         const myChartRef = chartRef.current.getContext("2d");
 
         new Chart(myChartRef, {
