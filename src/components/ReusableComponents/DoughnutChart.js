@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react"; 
 import Chart from 'chart.js';
 import "chartjs-plugin-labels";
+import "./DoughnutChart.css";
 
 const DoughnutChart = props => { 
     const chartRef = useRef();
@@ -52,7 +53,7 @@ const DoughnutChart = props => {
         })
     }, [props.data]); 
 
-    return <div style={{width: "90vw"}}><canvas id="myChart" width="200" height="200" ref={chartRef}></canvas></div>
+    return <div className="chart"><canvas id="myChart" width="200" height="200" ref={chartRef}></canvas></div>
 };
 
 export default DoughnutChart;

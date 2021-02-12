@@ -1,0 +1,15 @@
+.chart { 
+    width: 60vw;
+}
+
+@media only screen and (max-width: 600px) { 
+    .chart { 
+        width: 80vw;
+    }
+}
+
+@media only screen and (max-width: 480px) { 
+    .chart { 
+        width: 95vw;
+    }
+}

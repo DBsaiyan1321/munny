@@ -112,7 +112,7 @@ const CalculatorPage = ({ state, receiveInputs }) => {
                                 <div>Mid Cap: <p className="calculator-blue">{newAmounts.midCap}</p></div>
                                 <div>Large Cap: <p className="calculator-blue">{newAmounts.largeCap}</p></div>
                                 <div>Foreign: <p className="calculator-blue">{newAmounts.foreign}</p></div>
-                                <div>Samll Cap: <p className="calculator-blue">{newAmounts.smallCap}</p></div>
+                                <div>Small Cap: <p className="calculator-blue">{newAmounts.smallCap}</p></div>
                             </div>
                         </DropDisplay>
 
