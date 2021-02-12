@@ -23,7 +23,7 @@ const HomePage = props => {
                 <p className="home-page__header">Please Select A Risk Level For Your Investment Portfolio. 1 is low, 10 is high.</p>
                 <SelectMenu options={levels} onClick={level => props.setRiskLevel(level)} />
                 <Button text={ doughnut ? " Sheet" : "Doughnut"} onClick={() => setDoughnut(!doughnut)} />
-                <Link to="/calculator"><Button text="Continue" /></Link>
+                {"level" in props.risk ? <Link to="/calculator"><Button text="Continue" /></Link> : null}
                 {!doughnut ? (
                     <div className="grid-container">
                         {levels.map(level => {

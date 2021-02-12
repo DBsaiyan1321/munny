@@ -13,6 +13,7 @@ const CalculatorPage = ({ state, receiveInputs }) => {
     const [largeCap, setLargeCap] = useState(state.calculator.largeCap || 20);
     const [foreign, setForeign] = useState(state.calculator.foreign || 20);
     const [smallCap, setSmallCap] = useState(state.calculator.smallCap || 20);
+    const [error, setError] = useState("");
 
     let inputs = {
         bonds,
@@ -45,10 +46,12 @@ const CalculatorPage = ({ state, receiveInputs }) => {
 
     const validateInputs = () => {
         for (const input in inputs) {
+            if (inputs[input] === "") return false;
             const value = parseFloat(inputs[input] * 1);
             if (isNaN(value) || isNegative(value)) return false;
         }
 
+        setError("");
         return true;
     }
 
@@ -92,6 +95,7 @@ const CalculatorPage = ({ state, receiveInputs }) => {
                                 Small Cap: $
                             <input className="current-amounts__input" onChange={e => setSmallCap(e.currentTarget.value)} value={smallCap} placeholder="SmallCap" />
                             </label>
+                            <p className="error-message">{error}</p>
                         </div>
                     </DropDisplay>
                 </div>
@@ -132,7 +136,7 @@ const CalculatorPage = ({ state, receiveInputs }) => {
                 </div>
 
                 <Button onClick={() => { 
-                    validateInputs() ? receiveInputs(inputs) : console.log("error");
+                    validateInputs() ? receiveInputs(inputs) : setError("Inputs must be 0 or a positive number");
                 }} text="Calculate" />
             </div>
         </>

@@ -2,7 +2,7 @@
     display: grid;
     grid-template-rows: repeat(4, auto);
     grid-template-columns: repeat(3, auto);
-    margin: 3em 0;
+    margin: 1em 0;
 }
 
 .home-page { 
@@ -42,5 +42,9 @@
     .grid-container { 
         grid-template-columns: auto;
         grid-template-rows: repeat(10, auto);
+    }
+
+    .home-page__header { 
+        font-size: 18px;
     }
 }
