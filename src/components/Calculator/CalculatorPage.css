@@ -24,6 +24,7 @@
     display: flex;
     margin: 1em 0;
     align-items: center;
+    text-align: end;
 }
 
 .current-amounts__input { 
