@@ -1,0 +1,15 @@
+.navbar { 
+    font-size: 32px;
+    width: 100%;
+    background-color: var(--primary-color);
+    height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.navbar__logo { 
+    width: 1em;
+    height: 1em;
+    color: white;
+}

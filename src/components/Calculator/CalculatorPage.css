@@ -1,0 +1,80 @@
+.calculator-page { 
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2%;
+}
+
+.calculator-user-info { 
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-template-rows: auto;
+}
+
+.current-amounts { 
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 0 1em;
+}
+
+.current-amounts__label { 
+    display: flex;
+    margin: 1em 0;
+    align-items: center;
+    text-align: end;
+}
+
+.current-amounts__input { 
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 0.5em;
+}
+
+.calculator-results { 
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-template-rows: auto;
+}
+
+.calculator-page__info { 
+    padding: 1em;
+}
+
+.calculator-transfers { 
+    margin: 1em 0;
+}
+
+.calculator-green { 
+    color: green;
+}
+
+.calculator-red { 
+    color: red;
+}
+
+.calculator-blue { 
+    color: blue;
+}
+
+.error-message { 
+    color: red;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 0.5em;
+}
+
+.gutter { 
+    height: 24px;
+    width: 100%;
+}
+
+@media only screen and (max-width: 1200px) { 
+    .calculator-results { 
+        grid-template-columns: repeat(2, auto);
+        grid-template-rows: repeat(2, auto);
+    }
+}

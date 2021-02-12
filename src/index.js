@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Root from './components/Root';
 import reportWebVitals from './reportWebVitals';
 import configureStore from "./store/store";
+import "./index.css";
 
 const store = configureStore();
 
