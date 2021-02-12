@@ -1,7 +1,7 @@
 # To View the Application
 
 ## 1
-Visit [this link](dbsaiyan1321.github.io/munny/) 
+Visit dbsaiyan1321.github.io/munny/
 
 **OR**
 
