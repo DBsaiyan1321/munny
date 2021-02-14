@@ -119,10 +119,10 @@ const CalculatorPage = ({ state, receiveInputs }) => {
                         <DropDisplay title="Differences" selected>
                             <div className="calculator-page__info">
                                 <div>Bonds: <p className={isNegative(differences.bonds) ? "calculator-red" : "calculator-green"}>{differences.bonds}</p></div>
-                                <div>midCap: <p className={isNegative(differences.midCap) ? "calculator-red" : "calculator-green"}>{differences.midCap}</p></div>
-                                <div>largeCap: <p className={isNegative(differences.largeCap) ? "calculator-red" : "calculator-green"}>{differences.largeCap}</p></div>
-                                <div>foreign: <p className={isNegative(differences.foreign) ? "calculator-red" : "calculator-green"}>{differences.foreign}</p></div>
-                                <div>smallCap: <p className={isNegative(differences.smallCap) ? "calculator-red" : "calculator-green"}>{differences.smallCap}</p></div>
+                                <div>Mid Cap: <p className={isNegative(differences.midCap) ? "calculator-red" : "calculator-green"}>{differences.midCap}</p></div>
+                                <div>Large Cap: <p className={isNegative(differences.largeCap) ? "calculator-red" : "calculator-green"}>{differences.largeCap}</p></div>
+                                <div>Foreign: <p className={isNegative(differences.foreign) ? "calculator-red" : "calculator-green"}>{differences.foreign}</p></div>
+                                <div>Small Cap: <p className={isNegative(differences.smallCap) ? "calculator-red" : "calculator-green"}>{differences.smallCap}</p></div>
                             </div>
                         </DropDisplay>
 
