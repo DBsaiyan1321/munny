@@ -6,6 +6,7 @@ import Button from "../ReusableComponents/Button";
 import RiskLevelSheetRow from "../ReusableComponents/RiskLevelSheetRow";
 import { getTotal, calculateNewAmount, calculateDifference, isNegative, findMinimumTransfers } from "../../util/calculatorUtil";
 import { Redirect } from "react-router-dom";
+import CalculatorInputs from "../ReusableComponents/CalculatorInputs";
 
 const CalculatorPage = ({ state, receiveInputs }) => { 
     const [bonds, setBonds] = useState(state.calculator.bonds || 20);
@@ -62,42 +63,32 @@ const CalculatorPage = ({ state, receiveInputs }) => {
                 
                 <h1>Calculator Page</h1>
                 <div className="calculator-user-info"> 
-                    <DropDisplay title={`Risk Level ${state.risk.level}`} selected>
-                        <ul className="risk-level-sheet">
-                            <RiskLevelSheetRow category="Category" percentage="Percentage" style="risk-level-sheet-row--header" />
-                            <RiskLevelSheetRow category="Bonds" percentage={state.risk.bonds} />
-                            <RiskLevelSheetRow category="Large Cap" percentage={state.risk.largeCap} />
-                            <RiskLevelSheetRow category="Mid Cap" percentage={state.risk.midCap} />
-                            <RiskLevelSheetRow category="Foreign" percentage={state.risk.foreign} />
-                            <RiskLevelSheetRow category="Small Cap" percentage={state.risk.smallCap} />
-                        </ul>
-                    </DropDisplay>
+                    <div className="calculator-slot"> 
+                        <p>This is the risk level you chose in the previous step. Your results with be based off of the percentages that correspond with the risk level.</p>
+                        <DropDisplay title={`Risk Level ${state.risk.level}`} selected>
+                            <ul className="risk-level-sheet">
+                                <RiskLevelSheetRow category="Category" percentage="Percentage" style="risk-level-sheet-row--header" />
+                                <RiskLevelSheetRow category="Bonds" percentage={state.risk.bonds} />
+                                <RiskLevelSheetRow category="Large Cap" percentage={state.risk.largeCap} />
+                                <RiskLevelSheetRow category="Mid Cap" percentage={state.risk.midCap} />
+                                <RiskLevelSheetRow category="Foreign" percentage={state.risk.foreign} />
+                                <RiskLevelSheetRow category="Small Cap" percentage={state.risk.smallCap} />
+                            </ul>
+                        </DropDisplay>
+                    </div>
 
-                    <DropDisplay title="Current Amounts" selected>
-                        <div className="current-amounts">
-                            <label className="current-amounts__label">
-                                Bonds: $
-                            <input className="current-amounts__input" onChange={e => setBonds(e.currentTarget.value)} value={bonds} placeholder="bonds" />
-                            </label>
-                            <label className="current-amounts__label">
-                                Mid Cap: $
-                        <input className="current-amounts__input" onChange={e => setMidCap(e.currentTarget.value)} value={midCap} placeholder="midCap" />
-                            </label>
-                            <label className="current-amounts__label">
-                                Large Cap: $
-                        <input className="current-amounts__input" onChange={e => setLargeCap(e.currentTarget.value)} value={largeCap} placeholder="LargeCap" />
-                            </label>
-                            <label className="current-amounts__label">
-                                Foreign: $
-                            <input className="current-amounts__input" onChange={e => setForeign(e.currentTarget.value)} value={foreign} placeholder="foreign" />
-                            </label>
-                            <label className="current-amounts__label">
-                                Small Cap: $
-                            <input className="current-amounts__input" onChange={e => setSmallCap(e.currentTarget.value)} value={smallCap} placeholder="SmallCap" />
-                            </label>
-                            <p className="error-message">{error}</p>
-                        </div>
-                    </DropDisplay>
+                    <div className="calculator-slot">
+                        <DropDisplay title="Current Amounts" selected>
+                            <div className="current-amounts">
+                                <CalculatorInputs label="Bonds" onChange={e => setBonds(e.currentTarget.value)} value={bonds} />
+                                <CalculatorInputs label="Mid Cap" onChange={e => setMidCap(e.currentTarget.value)} value={midCap} />
+                                <CalculatorInputs label="Large Cap" onChange={e => setLargeCap(e.currentTarget.value)} value={largeCap} />
+                                <CalculatorInputs label="Foreign" onChange={e => setForeign(e.currentTarget.value)} value={foreign} />
+                                <CalculatorInputs label="Small Cap" onChange={e => setSmallCap(e.currentTarget.value)} value={smallCap} />
+                                <p className="error-message">{error}</p>
+                            </div>
+                        </DropDisplay>
+                    </div>
                 </div>
 
                 <div className="calculator-results"> 
