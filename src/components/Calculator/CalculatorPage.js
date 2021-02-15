@@ -1,19 +1,19 @@
-import React, { useState } from "react"; 
+import React, { useEffect, useState } from "react"; 
 import "./CalculatorPage.css";
 import Nav from "../Nav/Nav";
 import DropDisplay from "../ReusableComponents/DropDisplay";
 import Button from "../ReusableComponents/Button";
 import RiskLevelSheetRow from "../ReusableComponents/RiskLevelSheetRow";
-import { getTotal, calculateNewAmount, calculateDifference, isNegative, findMinimumTransfers } from "../../util/calculatorUtil";
+import { getTotal, isNegative, findMinimumTransfers } from "../../util/calculatorUtil";
 import { Redirect } from "react-router-dom";
 import CalculatorInputs from "../ReusableComponents/CalculatorInputs";
 
-const CalculatorPage = ({ state, handleInputs }) => { 
-    const [bonds, setBonds] = useState(state.calculator.inputs.bonds || 20);
-    const [midCap, setMidCap] = useState(state.calculator.inputs.midCap || 20);
-    const [largeCap, setLargeCap] = useState(state.calculator.inputs.largeCap || 20);
-    const [foreign, setForeign] = useState(state.calculator.inputs.foreign || 20);
-    const [smallCap, setSmallCap] = useState(state.calculator.inputs.smallCap || 20);
+const CalculatorPage = ({ risk, calculator, handleInputs, removeNewAmounts }) => { 
+    const [bonds, setBonds] = useState(calculator.inputs.bonds || 20);
+    const [midCap, setMidCap] = useState(calculator.inputs.midCap || 20);
+    const [largeCap, setLargeCap] = useState(calculator.inputs.largeCap || 20);
+    const [foreign, setForeign] = useState(calculator.inputs.foreign || 20);
+    const [smallCap, setSmallCap] = useState(calculator.inputs.smallCap || 20);
     const [error, setError] = useState("");
 
     const inputs = {
@@ -24,32 +24,8 @@ const CalculatorPage = ({ state, handleInputs }) => {
         smallCap
     };
 
-    // const handleInputs = inputs => { 
-    //     const total = getTotal(inputs);
-
-    //     const newAmounts = {
-    //         bonds: calculateNewAmount(total, state.risk.bonds),
-    //         midCap: calculateNewAmount(total, state.risk.midCap),
-    //         largeCap: calculateNewAmount(total, state.risk.largeCap),
-    //         foreign: calculateNewAmount(total, state.risk.foreign),
-    //         smallCap: calculateNewAmount(total, state.risk.smallCap)
-    //     };
-
-    //     const differences = {
-    //         bonds: calculateDifference(inputs.bonds, newAmounts.bonds),
-    //         midCap: calculateDifference(inputs.midCap, newAmounts.midCap),
-    //         largeCap: calculateDifference(inputs.largeCap, newAmounts.largeCap),
-    //         foreign: calculateDifference(inputs.foreign, newAmounts.foreign),
-    //         smallCap: calculateDifference(inputs.smallCap, newAmounts.smallCap)
-    //     };
-        
-    //     receiveInputs(inputs); 
-    //     receiveNewAmounts(newAmounts);
-    //     receiveDifferences(differences);
-    // }
-
     let transfers = [];
-    if ("bonds" in state.calculator.differences) transfers = findMinimumTransfers(state.calculator.differences);
+    if ("bonds" in calculator.differences) transfers = findMinimumTransfers(calculator.differences);
 
     const validateInputs = () => {
         for (const input in inputs) {
@@ -62,7 +38,13 @@ const CalculatorPage = ({ state, handleInputs }) => {
         return true;
     }
 
-    return !state.risk.level ? <Redirect to="/" /> : (
+    useEffect(() => { 
+        return () => {
+            removeNewAmounts();
+        }
+    }, [])
+
+    return !risk.level ? <Redirect to="/" /> : (
         <>
             <Nav />
             <div className="calculator-page">
@@ -71,14 +53,14 @@ const CalculatorPage = ({ state, handleInputs }) => {
                 <div className="calculator-user-info"> 
                     <div className="calculator-slot"> 
                         <p>This is the risk level you chose in the previous step. Your results with be based off of the percentages that correspond with the risk level.</p>
-                        <DropDisplay title={`Risk Level ${state.risk.level}`} selected>
+                        <DropDisplay title={`Risk Level ${risk.level}`} selected>
                             <ul className="risk-level-sheet">
                                 <RiskLevelSheetRow category="Category" percentage="Percentage" style="risk-level-sheet-row--header" />
-                                <RiskLevelSheetRow category="Bonds" percentage={state.risk.bonds} />
-                                <RiskLevelSheetRow category="Large Cap" percentage={state.risk.largeCap} />
-                                <RiskLevelSheetRow category="Mid Cap" percentage={state.risk.midCap} />
-                                <RiskLevelSheetRow category="Foreign" percentage={state.risk.foreign} />
-                                <RiskLevelSheetRow category="Small Cap" percentage={state.risk.smallCap} />
+                                <RiskLevelSheetRow category="Bonds" percentage={risk.bonds} />
+                                <RiskLevelSheetRow category="Large Cap" percentage={risk.largeCap} />
+                                <RiskLevelSheetRow category="Mid Cap" percentage={risk.midCap} />
+                                <RiskLevelSheetRow category="Foreign" percentage={risk.foreign} />
+                                <RiskLevelSheetRow category="Small Cap" percentage={risk.smallCap} />
                             </ul>
                         </DropDisplay>
                     </div>
@@ -98,28 +80,28 @@ const CalculatorPage = ({ state, handleInputs }) => {
                 </div>
 
                 <div className="calculator-results"> 
-                    {"level" in state.risk && Object.keys(state.calculator.inputs).length > 0 && Object.keys(state.calculator.differences).length > 0 ? <>
+                    {"level" in risk && Object.keys(calculator.inputs).length > 0 && Object.keys(calculator.differences).length > 0 ? <>
                         <DropDisplay title="Total" selected>
-                            <p className="calculator-page__info">{getTotal(state.calculator.inputs)}</p>
+                            <p className="calculator-page__info">{getTotal(calculator.inputs)}</p>
                         </DropDisplay>
 
                         <DropDisplay title="New Amounts" selected>
                             <div className="calculator-page__info">
-                                <div>Bonds: <p className="calculator-blue">{state.calculator.newAmounts.bonds}</p></div>
-                                <div>Mid Cap: <p className="calculator-blue">{state.calculator.newAmounts.midCap}</p></div>
-                                <div>Large Cap: <p className="calculator-blue">{state.calculator.newAmounts.largeCap}</p></div>
-                                <div>Foreign: <p className="calculator-blue">{state.calculator.newAmounts.foreign}</p></div>
-                                <div>Small Cap: <p className="calculator-blue">{state.calculator.newAmounts.smallCap}</p></div>
+                                <div>Bonds: <p className="calculator-blue">{calculator.newAmounts.bonds}</p></div>
+                                <div>Mid Cap: <p className="calculator-blue">{calculator.newAmounts.midCap}</p></div>
+                                <div>Large Cap: <p className="calculator-blue">{calculator.newAmounts.largeCap}</p></div>
+                                <div>Foreign: <p className="calculator-blue">{calculator.newAmounts.foreign}</p></div>
+                                <div>Small Cap: <p className="calculator-blue">{calculator.newAmounts.smallCap}</p></div>
                             </div>
                         </DropDisplay>
 
                         <DropDisplay title="Differences" selected>
                             <div className="calculator-page__info">
-                                <div>Bonds: <p className={isNegative(state.calculator.differences.bonds) ? "calculator-red" : "calculator-green"}>{state.calculator.differences.bonds}</p></div>
-                                <div>Mid Cap: <p className={isNegative(state.calculator.differences.midCap) ? "calculator-red" : "calculator-green"}>{state.calculator.differences.midCap}</p></div>
-                                <div>Large Cap: <p className={isNegative(state.calculator.differences.largeCap) ? "calculator-red" : "calculator-green"}>{state.calculator.differences.largeCap}</p></div>
-                                <div>Foreign: <p className={isNegative(state.calculator.differences.foreign) ? "calculator-red" : "calculator-green"}>{state.calculator.differences.foreign}</p></div>
-                                <div>Small Cap: <p className={isNegative(state.calculator.differences.smallCap) ? "calculator-red" : "calculator-green"}>{state.calculator.differences.smallCap}</p></div>
+                                <div>Bonds: <p className={isNegative(calculator.differences.bonds) ? "calculator-red" : "calculator-green"}>{calculator.differences.bonds}</p></div>
+                                <div>Mid Cap: <p className={isNegative(calculator.differences.midCap) ? "calculator-red" : "calculator-green"}>{calculator.differences.midCap}</p></div>
+                                <div>Large Cap: <p className={isNegative(calculator.differences.largeCap) ? "calculator-red" : "calculator-green"}>{calculator.differences.largeCap}</p></div>
+                                <div>Foreign: <p className={isNegative(calculator.differences.foreign) ? "calculator-red" : "calculator-green"}>{calculator.differences.foreign}</p></div>
+                                <div>Small Cap: <p className={isNegative(calculator.differences.smallCap) ? "calculator-red" : "calculator-green"}>{calculator.differences.smallCap}</p></div>
                             </div>
                         </DropDisplay>
 

@@ -4,16 +4,16 @@ import { receiveInputs } from "./inputs_actions";
 import { calculateNewAmount, calculateDifference, getTotal } from "../util/calculatorUtil";
 
 export const handleInputs = inputs => (dispatch, getState) => { 
-    const state = getState();
+    const { risk } = getState();
 
     const total = getTotal(inputs);
 
     const newAmounts = {
-        bonds: calculateNewAmount(total, state.risk.bonds),
-        midCap: calculateNewAmount(total, state.risk.midCap),
-        largeCap: calculateNewAmount(total, state.risk.largeCap),
-        foreign: calculateNewAmount(total, state.risk.foreign),
-        smallCap: calculateNewAmount(total, state.risk.smallCap)
+        bonds: calculateNewAmount(total, risk.bonds),
+        midCap: calculateNewAmount(total, risk.midCap),
+        largeCap: calculateNewAmount(total, risk.largeCap),
+        foreign: calculateNewAmount(total, risk.foreign),
+        smallCap: calculateNewAmount(total, risk.smallCap)
     };
 
     const differences = {
