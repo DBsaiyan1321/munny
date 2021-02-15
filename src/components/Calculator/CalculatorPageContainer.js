@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { receiveInputs } from "../../actions/calculator_actions";
+import { handleInputs } from "../../actions/calculator_actions";
 import CalculatorPage from "./CalculatorPage";
 
 const mapStateToProps = state => ({ 
@@ -7,7 +7,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    receiveInputs: inputs => dispatch(receiveInputs(inputs))
+    handleInputs: inputs => dispatch(handleInputs(inputs))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalculatorPage);

@@ -8,15 +8,15 @@ import { getTotal, calculateNewAmount, calculateDifference, isNegative, findMini
 import { Redirect } from "react-router-dom";
 import CalculatorInputs from "../ReusableComponents/CalculatorInputs";
 
-const CalculatorPage = ({ state, receiveInputs }) => { 
-    const [bonds, setBonds] = useState(state.calculator.bonds || 20);
-    const [midCap, setMidCap] = useState(state.calculator.midCap || 20);
-    const [largeCap, setLargeCap] = useState(state.calculator.largeCap || 20);
-    const [foreign, setForeign] = useState(state.calculator.foreign || 20);
-    const [smallCap, setSmallCap] = useState(state.calculator.smallCap || 20);
+const CalculatorPage = ({ state, handleInputs }) => { 
+    const [bonds, setBonds] = useState(state.calculator.inputs.bonds || 20);
+    const [midCap, setMidCap] = useState(state.calculator.inputs.midCap || 20);
+    const [largeCap, setLargeCap] = useState(state.calculator.inputs.largeCap || 20);
+    const [foreign, setForeign] = useState(state.calculator.inputs.foreign || 20);
+    const [smallCap, setSmallCap] = useState(state.calculator.inputs.smallCap || 20);
     const [error, setError] = useState("");
 
-    let inputs = {
+    const inputs = {
         bonds,
         midCap,
         largeCap,
@@ -24,26 +24,32 @@ const CalculatorPage = ({ state, receiveInputs }) => {
         smallCap
     };
 
-    let total = getTotal(state.calculator);
+    // const handleInputs = inputs => { 
+    //     const total = getTotal(inputs);
 
-    let newAmounts = { 
-        bonds: calculateNewAmount(total, state.risk.bonds),
-        midCap: calculateNewAmount(total, state.risk.midCap),
-        largeCap: calculateNewAmount(total, state.risk.largeCap),
-        foreign: calculateNewAmount(total, state.risk.foreign),
-        smallCap: calculateNewAmount(total, state.risk.smallCap)
-    };
+    //     const newAmounts = {
+    //         bonds: calculateNewAmount(total, state.risk.bonds),
+    //         midCap: calculateNewAmount(total, state.risk.midCap),
+    //         largeCap: calculateNewAmount(total, state.risk.largeCap),
+    //         foreign: calculateNewAmount(total, state.risk.foreign),
+    //         smallCap: calculateNewAmount(total, state.risk.smallCap)
+    //     };
 
-    let differences = { 
-        bonds: calculateDifference(state.calculator.bonds, newAmounts.bonds),
-        midCap: calculateDifference(state.calculator.midCap, newAmounts.midCap),
-        largeCap: calculateDifference(state.calculator.largeCap, newAmounts.largeCap),
-        foreign: calculateDifference(state.calculator.foreign, newAmounts.foreign),
-        smallCap: calculateDifference(state.calculator.smallCap, newAmounts.smallCap)
-    };
+    //     const differences = {
+    //         bonds: calculateDifference(inputs.bonds, newAmounts.bonds),
+    //         midCap: calculateDifference(inputs.midCap, newAmounts.midCap),
+    //         largeCap: calculateDifference(inputs.largeCap, newAmounts.largeCap),
+    //         foreign: calculateDifference(inputs.foreign, newAmounts.foreign),
+    //         smallCap: calculateDifference(inputs.smallCap, newAmounts.smallCap)
+    //     };
+        
+    //     receiveInputs(inputs); 
+    //     receiveNewAmounts(newAmounts);
+    //     receiveDifferences(differences);
+    // }
 
     let transfers = [];
-    if ("bonds" in differences) transfers = findMinimumTransfers(differences);
+    if ("bonds" in state.calculator.differences) transfers = findMinimumTransfers(state.calculator.differences);
 
     const validateInputs = () => {
         for (const input in inputs) {
@@ -92,28 +98,28 @@ const CalculatorPage = ({ state, receiveInputs }) => {
                 </div>
 
                 <div className="calculator-results"> 
-                    {"level" in state.risk && Object.keys(state.calculator).length > 0 ? <>
+                    {"level" in state.risk && Object.keys(state.calculator.inputs).length > 0 && Object.keys(state.calculator.differences).length > 0 ? <>
                         <DropDisplay title="Total" selected>
-                            <p className="calculator-page__info">{total}</p>
+                            <p className="calculator-page__info">{getTotal(state.calculator.inputs)}</p>
                         </DropDisplay>
 
                         <DropDisplay title="New Amounts" selected>
                             <div className="calculator-page__info">
-                                <div>Bonds: <p className="calculator-blue">{newAmounts.bonds}</p></div>
-                                <div>Mid Cap: <p className="calculator-blue">{newAmounts.midCap}</p></div>
-                                <div>Large Cap: <p className="calculator-blue">{newAmounts.largeCap}</p></div>
-                                <div>Foreign: <p className="calculator-blue">{newAmounts.foreign}</p></div>
-                                <div>Small Cap: <p className="calculator-blue">{newAmounts.smallCap}</p></div>
+                                <div>Bonds: <p className="calculator-blue">{state.calculator.newAmounts.bonds}</p></div>
+                                <div>Mid Cap: <p className="calculator-blue">{state.calculator.newAmounts.midCap}</p></div>
+                                <div>Large Cap: <p className="calculator-blue">{state.calculator.newAmounts.largeCap}</p></div>
+                                <div>Foreign: <p className="calculator-blue">{state.calculator.newAmounts.foreign}</p></div>
+                                <div>Small Cap: <p className="calculator-blue">{state.calculator.newAmounts.smallCap}</p></div>
                             </div>
                         </DropDisplay>
 
                         <DropDisplay title="Differences" selected>
                             <div className="calculator-page__info">
-                                <div>Bonds: <p className={isNegative(differences.bonds) ? "calculator-red" : "calculator-green"}>{differences.bonds}</p></div>
-                                <div>Mid Cap: <p className={isNegative(differences.midCap) ? "calculator-red" : "calculator-green"}>{differences.midCap}</p></div>
-                                <div>Large Cap: <p className={isNegative(differences.largeCap) ? "calculator-red" : "calculator-green"}>{differences.largeCap}</p></div>
-                                <div>Foreign: <p className={isNegative(differences.foreign) ? "calculator-red" : "calculator-green"}>{differences.foreign}</p></div>
-                                <div>Small Cap: <p className={isNegative(differences.smallCap) ? "calculator-red" : "calculator-green"}>{differences.smallCap}</p></div>
+                                <div>Bonds: <p className={isNegative(state.calculator.differences.bonds) ? "calculator-red" : "calculator-green"}>{state.calculator.differences.bonds}</p></div>
+                                <div>Mid Cap: <p className={isNegative(state.calculator.differences.midCap) ? "calculator-red" : "calculator-green"}>{state.calculator.differences.midCap}</p></div>
+                                <div>Large Cap: <p className={isNegative(state.calculator.differences.largeCap) ? "calculator-red" : "calculator-green"}>{state.calculator.differences.largeCap}</p></div>
+                                <div>Foreign: <p className={isNegative(state.calculator.differences.foreign) ? "calculator-red" : "calculator-green"}>{state.calculator.differences.foreign}</p></div>
+                                <div>Small Cap: <p className={isNegative(state.calculator.differences.smallCap) ? "calculator-red" : "calculator-green"}>{state.calculator.differences.smallCap}</p></div>
                             </div>
                         </DropDisplay>
 
@@ -127,7 +133,7 @@ const CalculatorPage = ({ state, receiveInputs }) => {
                 </div>
 
                 <Button onClick={() => { 
-                    validateInputs() ? receiveInputs(inputs) : setError("Inputs must be 0 or a positive number");
+                    validateInputs() ? handleInputs(inputs) : setError("Inputs must be 0 or a positive number");
                 }} text="Calculate" />
             </div>
         </>
