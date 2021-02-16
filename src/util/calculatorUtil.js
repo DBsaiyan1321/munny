@@ -1,3 +1,11 @@
+export const categoryStringObject = {
+    bonds: "Bonds",
+    midCap: "Mid Cap",
+    largeCap: "Large Cap",
+    foreign: "Foreign",
+    smallCap: "Small Cap"
+};
+
 // Given an object of inputs, where the keys are the categories and the values are the amounts in dollars, calculate the grand total.
 export const getTotal = inputsObject => {
     let total = 0;

@@ -4,7 +4,7 @@ import Nav from "../Nav/Nav";
 import DropDisplay from "../ReusableComponents/DropDisplay";
 import Button from "../ReusableComponents/Button";
 import RiskLevelSheetRow from "../ReusableComponents/RiskLevelSheetRow";
-import { getTotal, isNegative } from "../../util/calculatorUtil";
+import { getTotal, isNegative, categoryStringObject } from "../../util/calculatorUtil";
 import { Redirect } from "react-router-dom";
 import CalculatorInputs from "../ReusableComponents/CalculatorInputs";
 
@@ -53,11 +53,9 @@ const CalculatorPage = ({ risk, calculator, handleInputs, removeNewAmounts }) =>
                         <DropDisplay title={`Risk Level ${risk.level}`} selected>
                             <ul className="risk-level-sheet">
                                 <RiskLevelSheetRow category="Category" percentage="Percentage" style="risk-level-sheet-row--header" />
-                                <RiskLevelSheetRow category="Bonds" percentage={risk.bonds} />
-                                <RiskLevelSheetRow category="Large Cap" percentage={risk.largeCap} />
-                                <RiskLevelSheetRow category="Mid Cap" percentage={risk.midCap} />
-                                <RiskLevelSheetRow category="Foreign" percentage={risk.foreign} />
-                                <RiskLevelSheetRow category="Small Cap" percentage={risk.smallCap} />
+                                { Object.keys(categoryStringObject).map((category, i) => { 
+                                    return <RiskLevelSheetRow category={categoryStringObject[category]} percentage={risk[category]} key={i} />
+                                })}
                             </ul>
                         </DropDisplay>
                     </div>
@@ -84,21 +82,17 @@ const CalculatorPage = ({ risk, calculator, handleInputs, removeNewAmounts }) =>
 
                         <DropDisplay title="New Amounts" selected>
                             <div className="calculator-page__info">
-                                <div>Bonds: <p className="calculator-blue">{calculator.newAmounts.bonds}</p></div>
-                                <div>Mid Cap: <p className="calculator-blue">{calculator.newAmounts.midCap}</p></div>
-                                <div>Large Cap: <p className="calculator-blue">{calculator.newAmounts.largeCap}</p></div>
-                                <div>Foreign: <p className="calculator-blue">{calculator.newAmounts.foreign}</p></div>
-                                <div>Small Cap: <p className="calculator-blue">{calculator.newAmounts.smallCap}</p></div>
+                                {Object.keys(categoryStringObject).map((category, i) => {
+                                    return <div key={i}>{categoryStringObject[category]}: <p className="calculator-blue">{calculator.newAmounts[category]}</p></div>
+                                })}
                             </div>
                         </DropDisplay>
 
                         <DropDisplay title="Differences" selected>
                             <div className="calculator-page__info">
-                                <div>Bonds: <p className={isNegative(calculator.differences.bonds) ? "calculator-red" : "calculator-green"}>{calculator.differences.bonds}</p></div>
-                                <div>Mid Cap: <p className={isNegative(calculator.differences.midCap) ? "calculator-red" : "calculator-green"}>{calculator.differences.midCap}</p></div>
-                                <div>Large Cap: <p className={isNegative(calculator.differences.largeCap) ? "calculator-red" : "calculator-green"}>{calculator.differences.largeCap}</p></div>
-                                <div>Foreign: <p className={isNegative(calculator.differences.foreign) ? "calculator-red" : "calculator-green"}>{calculator.differences.foreign}</p></div>
-                                <div>Small Cap: <p className={isNegative(calculator.differences.smallCap) ? "calculator-red" : "calculator-green"}>{calculator.differences.smallCap}</p></div>
+                                {Object.keys(categoryStringObject).map((category, i) => {
+                                    return <div key={i}>{categoryStringObject[category]}: <p className={isNegative(calculator.differences[category]) ? "calculator-red" : "calculator-green"}>{calculator.differences[category]}</p></div>
+                                })}
                             </div>
                         </DropDisplay>
 
