@@ -4,7 +4,7 @@ import Nav from "../Nav/Nav";
 import DropDisplay from "../ReusableComponents/DropDisplay";
 import Button from "../ReusableComponents/Button";
 import RiskLevelSheetRow from "../ReusableComponents/RiskLevelSheetRow";
-import { getTotal, isNegative, findMinimumTransfers } from "../../util/calculatorUtil";
+import { getTotal, isNegative } from "../../util/calculatorUtil";
 import { Redirect } from "react-router-dom";
 import CalculatorInputs from "../ReusableComponents/CalculatorInputs";
 
@@ -23,9 +23,6 @@ const CalculatorPage = ({ risk, calculator, handleInputs, removeNewAmounts }) =>
         foreign,
         smallCap
     };
-
-    let transfers = [];
-    if ("bonds" in calculator.differences) transfers = findMinimumTransfers(calculator.differences);
 
     const validateInputs = () => {
         for (const input in inputs) {
@@ -107,7 +104,7 @@ const CalculatorPage = ({ risk, calculator, handleInputs, removeNewAmounts }) =>
 
                         <DropDisplay title="Recommended Transfers" selected>
                             <div className="calculator-page__info">
-                                {transfers.map((transfer, i) => <p key={i} className="calculator-transfers">{transfer}</p>)}
+                                {calculator.transfers.map((transfer, i) => <p key={i} className="calculator-transfers">{transfer}</p>)}
                             </div>
                         </DropDisplay>
                     </> : null

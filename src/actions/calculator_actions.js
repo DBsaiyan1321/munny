@@ -1,7 +1,8 @@
 import { receiveNewAmounts } from "./new_amounts_actions";
 import { receiveDifferences } from "./differences_actions";
 import { receiveInputs } from "./inputs_actions";
-import { calculateNewAmount, calculateDifference, getTotal } from "../util/calculatorUtil";
+import { calculateNewAmount, calculateDifference, getTotal, findMinimumTransfers } from "../util/calculatorUtil";
+import { receiveTransfers } from "./transfers_actions";
 
 export const handleInputs = inputs => (dispatch, getState) => { 
     const { risk } = getState();
@@ -24,7 +25,10 @@ export const handleInputs = inputs => (dispatch, getState) => {
         smallCap: calculateDifference(inputs.smallCap, newAmounts.smallCap)
     };
 
+    const transfers = findMinimumTransfers(differences);
+
     dispatch(receiveInputs(inputs));
     dispatch(receiveNewAmounts(newAmounts));
     dispatch(receiveDifferences(differences));
+    dispatch(receiveTransfers(transfers));
 }
