@@ -1,6 +1,6 @@
 import { RECEIVE_INPUTS } from "../actions/inputs_actions";
 
-const calculatorReducer = (initialState = {}, action) => {
+const CalculatorReducer = (initialState = {}, action) => {
     Object.freeze(initialState);
     switch (action.type) {
         case RECEIVE_INPUTS:
@@ -10,4 +10,4 @@ const calculatorReducer = (initialState = {}, action) => {
     }
 };
 
-export default calculatorReducer;
+export default CalculatorReducer;

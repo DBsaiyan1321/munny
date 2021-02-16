@@ -4,11 +4,11 @@ import NewAmountsReducer from "./new_amounts_reducer";
 import { combineReducers } from "redux"; 
 import TransfersReducer from "./transfers_reducer";
 
-const calculatorReducer = combineReducers({
+const CalculatorReducer = combineReducers({
     inputs: InputsReducer, 
     differences: DifferencesReducer, 
     newAmounts: NewAmountsReducer,
     transfers: TransfersReducer
 });
 
-export default calculatorReducer;
+export default CalculatorReducer;

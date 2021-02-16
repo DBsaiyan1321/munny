@@ -4,6 +4,8 @@ import { receiveInputs } from "./inputs_actions";
 import { calculateNewAmount, calculateDifference, getTotal, findMinimumTransfers } from "../util/calculatorUtil";
 import { receiveTransfers } from "./transfers_actions";
 
+// Thunk action used to dispatch multiple things at once. Since they all rely on 
+// the same inputs and risk level, I thought this was the cleanest way to do it. 
 export const handleInputs = inputs => (dispatch, getState) => { 
     const { risk } = getState();
 

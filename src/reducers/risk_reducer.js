@@ -4,7 +4,7 @@ import { RECEIVE_RISK_LEVEL } from "../actions/risk_actions";
 //     selectLevel: 20
 // };
 
-const riskReducer = (initialState = {}, action) => { 
+const RiskReducer = (initialState = {}, action) => { 
     Object.freeze(initialState); 
     switch (action.type) {
         case RECEIVE_RISK_LEVEL: 
@@ -14,4 +14,4 @@ const riskReducer = (initialState = {}, action) => {
     }
 };
 
-export default riskReducer;
+export default RiskReducer;
