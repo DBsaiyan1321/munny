@@ -1,4 +1,4 @@
-import React, { useState } from "react"; 
+import React, { useState, useEffect } from "react"; 
 import "./CalculatorPage.css";
 import Nav from "../Nav/Nav";
 import DropDisplay from "../ReusableComponents/DropDisplay";
@@ -34,6 +34,10 @@ const CalculatorPage = ({ risk, calculator, handleInputs, removeNewAmounts }) =>
         setError("");
         return true;
     }
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     return !risk.level ? <Redirect to="/" /> : (
         <>
