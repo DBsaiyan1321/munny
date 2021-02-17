@@ -6,6 +6,7 @@ const Button = ({ onClick, text, textStyle, buttonStyle }) => {
         <button 
             className={"risk-button"}
             onClick={onClick}
+            // disabled
         >
             {text}
         </button>

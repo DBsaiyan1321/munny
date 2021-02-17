@@ -1,0 +1,12 @@
+.current-amounts__label { 
+    display: flex;
+    margin: 1em 0;
+    align-items: center;
+    text-align: end;
+}
+
+.current-amounts__input { 
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 0.5em;
+}

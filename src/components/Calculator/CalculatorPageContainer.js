@@ -1,13 +1,16 @@
 import { connect } from "react-redux";
-import { receiveInputs } from "../../actions/calculator_actions";
+import { handleInputs } from "../../actions/calculator_actions";
+import { removeNewAmounts } from "../../actions/new_amounts_actions";
 import CalculatorPage from "./CalculatorPage";
 
 const mapStateToProps = state => ({ 
-    state 
+    risk: state.risk, 
+    calculator: state.calculator
 });
 
 const mapDispatchToProps = dispatch => ({
-    receiveInputs: inputs => dispatch(receiveInputs(inputs))
+    handleInputs: inputs => dispatch(handleInputs(inputs)), 
+    removeNewAmounts: () => dispatch(removeNewAmounts())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CalculatorPage);

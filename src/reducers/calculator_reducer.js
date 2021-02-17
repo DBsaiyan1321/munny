@@ -1,13 +1,14 @@
-import { RECEIVE_INPUTS } from "../actions/calculator_actions";
+import InputsReducer from "./inputs_reducer";
+import DifferencesReducer from "./differences_reducer";
+import NewAmountsReducer from "./new_amounts_reducer";
+import { combineReducers } from "redux"; 
+import TransfersReducer from "./transfers_reducer";
 
-const calculatorReducer = (initialState = {}, action) => {
-    Object.freeze(initialState);
-    switch (action.type) {
-        case RECEIVE_INPUTS:
-            return { ...initialState, ...action.inputs };
-        default:
-            return initialState;
-    }
-};
+const CalculatorReducer = combineReducers({
+    inputs: InputsReducer, 
+    differences: DifferencesReducer, 
+    newAmounts: NewAmountsReducer,
+    transfers: TransfersReducer
+});
 
-export default calculatorReducer;
+export default CalculatorReducer;

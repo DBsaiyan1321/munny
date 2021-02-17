@@ -36,12 +36,18 @@ const DoughnutChart = props => {
                 }]
             },
             options: {
+                legend: {
+                    labels: {
+                        fontColor: 'white',
+                        // fontSize: 18
+                    }
+                },
                 events: [],
                 plugins: {
                     labels: [
                         {
                             render: 'label',
-                            fontColor: 'black'
+                            fontColor: 'white'
                         },
                         {
                             render: 'percentage',

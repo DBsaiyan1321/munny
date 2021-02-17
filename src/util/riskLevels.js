@@ -1,3 +1,4 @@
+// These are the hardcoded risk levels and their corresponding percentages.
 export const riskLevels = { 
     1: {
         level: 1, 

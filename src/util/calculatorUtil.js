@@ -1,3 +1,12 @@
+export const categoryStringObject = {
+    bonds: "Bonds",
+    midCap: "Mid Cap",
+    largeCap: "Large Cap",
+    foreign: "Foreign",
+    smallCap: "Small Cap"
+};
+
+// Given an object of inputs, where the keys are the categories and the values are the amounts in dollars, calculate the grand total.
 export const getTotal = inputsObject => {
     let total = 0;
     for (const input in inputsObject) {
@@ -6,18 +15,28 @@ export const getTotal = inputsObject => {
     return total.toFixed(2);
 };
 
+
+// Given the total (dollars) and a percentage, output the dollar amount of that percentage of the total.
 export const calculateNewAmount = (total, percentage) => (total * (percentage / 100)).toFixed(2);
 
+
+// Given an amount and what we expect the amount should be, return the difference.
 export const calculateDifference = (amount, expected) => (amount - expected).toFixed(2);
 
+
+// Determine whether the input is positive
 export const isPositive = number => number > 0;
 
+
+// Determine whether the input is negative.
 export const isNegative = number => number < 0;
+
 
 // Zero is neither positive nor negative.
 
-// Problem: Given differences and corresponding category names, find the recommended 
-// transfers to balance everything out. It should be the minimum amount of transfers possible.
+
+// Given an object of differences (keys are the category names and the values are the differences), 
+// find the minimum number of transfers need to balance everything out.
 export const findMinimumTransfers = differences => {
     const words = {
         bonds: "Bonds",

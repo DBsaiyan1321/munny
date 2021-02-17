@@ -7,9 +7,22 @@
 }
 
 .calculator-user-info { 
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(2, auto);
-    grid-template-rows: auto;
+    grid-template-rows: auto; */
+}
+
+.calculator-slot { 
+    display: flex;
+    background-color: blueviolet;
+    margin: 1em;
+    align-items: center;
+}
+
+.calculator-slot__text { 
+    height: fit-content;
+    color: white;
+    padding: 2em;
 }
 
 .current-amounts { 
@@ -18,19 +31,6 @@
     flex-direction: column;
     align-items: flex-end;
     padding: 0 1em;
-}
-
-.current-amounts__label { 
-    display: flex;
-    margin: 1em 0;
-    align-items: center;
-    text-align: end;
-}
-
-.current-amounts__input { 
-    border: 1px solid var(--primary-color);
-    border-radius: 10px;
-    padding: 0.5em;
 }
 
 .calculator-results { 
@@ -86,5 +86,9 @@
 
     .calculator-user-info { 
         grid-template-columns: auto;
+    }
+
+    .calculator-slot { 
+        flex-direction: column;
     }
 }

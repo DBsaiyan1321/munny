@@ -1,10 +1,10 @@
 import { combineReducers } from "redux"; 
-import calculatorReducer from "./calculator_reducer";
-import riskReducer from "./risk_reducer";
+import CalculatorReducer from "./calculator_reducer";
+import RiskReducer from "./risk_reducer";
 
 const rootReducer = combineReducers({
-    risk: riskReducer,
-    calculator: calculatorReducer
+    risk: RiskReducer,
+    calculator: CalculatorReducer
 });
 
 export default rootReducer;
