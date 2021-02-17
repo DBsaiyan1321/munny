@@ -1,15 +1,17 @@
-import React, { useEffect, useRef } from "react"; 
+import React, { useEffect, useRef, useState } from "react"; 
 import Chart from 'chart.js';
 import "chartjs-plugin-labels";
 import "./DoughnutChart.css";
 
 const DoughnutChart = props => { 
+    const [chart, setChart] = useState(null);
+
     const chartRef = useRef();
 
     useEffect(() => { 
         const myChartRef = chartRef.current.getContext("2d");
 
-        new Chart(myChartRef, {
+        setChart(new Chart(myChartRef, {
             type: 'doughnut',
             data: {
                 labels: props.labels,
@@ -38,8 +40,7 @@ const DoughnutChart = props => {
             options: {
                 legend: {
                     labels: {
-                        fontColor: 'white',
-                        // fontSize: 18
+                        fontColor: 'white'
                     }
                 },
                 events: [],
@@ -56,8 +57,19 @@ const DoughnutChart = props => {
                     ]
                 }
             }
-        })
-    }, [props.data]); 
+        }))
+    }, []); 
+
+    useEffect(() => { 
+        if (chart) { 
+            let copy = chart; 
+            copy.data.datasets.forEach(dataset => {
+                dataset.data = props.data;
+            });
+            copy.update();
+            setChart(copy);
+        }
+    }, [props.data])
 
     return <div className="chart"><canvas id="myChart" width="200" height="200" ref={chartRef}></canvas></div>
 };

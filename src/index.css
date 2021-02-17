@@ -10,3 +10,7 @@
 	/* --primary-color: #8d6fe8; */
 	--secondary-color: #e4e4e4;
 }
+
+/* html {
+    scroll-behavior: smooth;
+} */

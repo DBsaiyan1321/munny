@@ -1,4 +1,4 @@
-import React, { useState } from "react"; 
+import React, { useState, useRef, useEffect } from "react"; 
 import Nav from "../Nav/Nav";
 import Button from "../ReusableComponents/Button";
 import { Link } from "react-router-dom"
@@ -11,12 +11,21 @@ import RiskLevelSheetRow from "../ReusableComponents/RiskLevelSheetRow";
 import HomePageBox from "../ReusableComponents/HomePageBox";
 
 const HomePage = props => { 
+    const mySelectRef = useRef(null);
+
     const [doughnut, setDoughnut] = useState(false);
 
     const levels = [1,2,3,4,5,6,7,8,9,10];
 
     const chartLabels = "level" in props.state.risk ? ["Bonds", "Large Cap", "Mid Cap", "Foreign", "Small Cap"] : ["Select Level", "Select Level", "Select Level", "Select Level", "Select Level"];
     const chartData = "level" in props.state.risk ? [props.state.risk.bonds, props.state.risk.largeCap, props.state.risk.midCap, props.state.risk.foreign, props.state.risk.smallCap,] : [20, 20, 20, 20, 20];
+    const executeScroll = () => mySelectRef.current.scrollIntoView({ behavior: 'smooth' });
+    // run this function from an event handler or an effect to execute scroll
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, []);
+
     return (
         <>
             <Nav />
@@ -24,7 +33,7 @@ const HomePage = props => {
                 <div className="hero"> 
                     <p className="hero-main">Money works. Not you.</p>
                     <p className="hero-other">Start by getting an investment portfolio recommendation today!</p>
-                    <Button text="Get Started" />
+                    <Button text="Get Started" onClick={executeScroll} />
                 </div>
                 <div className="home-page-second"> 
                     <HomePageBox icon="1" title="Risk Level" text="Pick the level of risk that you want to invest with. Don't worry, we have all of the information you need." />
@@ -32,7 +41,7 @@ const HomePage = props => {
                     <HomePageBox icon="3" title="Enter Amounts" text="Provide the amount of money you have allocated for each category of your portfolio." />
                     <HomePageBox icon="4" title="We Recommend" text="Based off of your inputs, our special code provides you with all of the knowledge you need." />
                 </div>
-                <div className="home-page-third">
+                <div className="home-page-third" ref={mySelectRef}>
                     <p className="home-page__header">Please Select A Risk Level For Your Investment Portfolio. 1 is low, 10 is high.</p>
                     <SelectMenu options={levels} onClick={level => props.setRiskLevel(level)} />
                     <Button text={ doughnut ? " Sheet" : "Doughnut"} onClick={() => setDoughnut(!doughnut)} />

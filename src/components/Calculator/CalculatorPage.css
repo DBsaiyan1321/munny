@@ -23,6 +23,8 @@
     height: fit-content;
     color: white;
     padding: 2em;
+    max-width: 400px;
+    font-size: 18px;
 }
 
 .current-amounts { 
@@ -90,5 +92,9 @@
 
     .calculator-slot { 
         flex-direction: column;
+    }
+
+    .calculator-slot__text { 
+        font-size: 16px;
     }
 }
