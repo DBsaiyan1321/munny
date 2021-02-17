@@ -8,12 +8,12 @@ import { getTotal, isNegative, categoryStringObject } from "../../util/calculato
 import { Redirect } from "react-router-dom";
 import CalculatorInputs from "../ReusableComponents/CalculatorInputs";
 
-const CalculatorPage = ({ risk, calculator, handleInputs, removeNewAmounts }) => { 
-    const [bonds, setBonds] = useState(calculator.inputs.bonds || 20);
-    const [midCap, setMidCap] = useState(calculator.inputs.midCap || 20);
-    const [largeCap, setLargeCap] = useState(calculator.inputs.largeCap || 20);
-    const [foreign, setForeign] = useState(calculator.inputs.foreign || 20);
-    const [smallCap, setSmallCap] = useState(calculator.inputs.smallCap || 20);
+const CalculatorPage = ({ risk, calculator, handleInputs }) => { 
+    const [bonds, setBonds] = useState(calculator.inputs.bonds || 0);
+    const [midCap, setMidCap] = useState(calculator.inputs.midCap || 0);
+    const [largeCap, setLargeCap] = useState(calculator.inputs.largeCap || 0);
+    const [foreign, setForeign] = useState(calculator.inputs.foreign || 0);
+    const [smallCap, setSmallCap] = useState(calculator.inputs.smallCap || 0);
     const [error, setError] = useState("");
 
     const inputs = {
@@ -61,9 +61,7 @@ const CalculatorPage = ({ risk, calculator, handleInputs, removeNewAmounts }) =>
                     <div className="calculator-slot">
                         <p className="calculator-slot__text">
                             Enter the amount of money in DOLLARS, not percentage,
-                            that you have allocated towards each category. This is
-                            the data that we will use to recommend you a perfect portfolio.
-                            For the best results, please enter accurate information.
+                            that you have allocated towards each category.
                         </p>
                         <DropDisplay title="Current Amounts" selected>
                             <div className="current-amounts">
@@ -93,9 +91,7 @@ const CalculatorPage = ({ risk, calculator, handleInputs, removeNewAmounts }) =>
                         <div className="calculator-slot">
                             <p className="calculator-slot__text">
                                 These new amounts are what we recommend you have
-                                in each category. This is based on the percentages
-                                of the risk level you chose and the total amount
-                                of money you have.
+                                in each category.
                             </p>
                             <DropDisplay title="New Amounts" selected>
                                 <div className="calculator-page__info">
@@ -111,9 +107,7 @@ const CalculatorPage = ({ risk, calculator, handleInputs, removeNewAmounts }) =>
                                 Differences are the comparison between the amount 
                                 of money you have allocated towards each category 
                                 vs the amount of money we recommend from the new 
-                                amounts given above. Red means that you have less 
-                                money in that category then we recommend, and green 
-                                means you have more money in that category then we recommend.
+                                amounts given above. 
                             </p>
                             <DropDisplay title="Differences" selected>
                                 <div className="calculator-page__info">
