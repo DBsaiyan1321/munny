@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/munny/static/css/main.31db32fe.chunk.css",
+    "main.css": "/munny/static/css/main.7d4f2069.chunk.css",
     "main.js": "/munny/static/js/main.f3d2213d.chunk.js",
     "main.js.map": "/munny/static/js/main.f3d2213d.chunk.js.map",
     "runtime-main.js": "/munny/static/js/runtime-main.c48ec2e2.js",
@@ -10,13 +10,13 @@
     "static/js/3.e1e1645c.chunk.js": "/munny/static/js/3.e1e1645c.chunk.js",
     "static/js/3.e1e1645c.chunk.js.map": "/munny/static/js/3.e1e1645c.chunk.js.map",
     "index.html": "/munny/index.html",
-    "static/css/main.31db32fe.chunk.css.map": "/munny/static/css/main.31db32fe.chunk.css.map",
+    "static/css/main.7d4f2069.chunk.css.map": "/munny/static/css/main.7d4f2069.chunk.css.map",
     "static/js/2.89d4a3bf.chunk.js.LICENSE.txt": "/munny/static/js/2.89d4a3bf.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.c48ec2e2.js",
     "static/js/2.89d4a3bf.chunk.js",
-    "static/css/main.31db32fe.chunk.css",
+    "static/css/main.7d4f2069.chunk.css",
     "static/js/main.f3d2213d.chunk.js"
   ]
 }
