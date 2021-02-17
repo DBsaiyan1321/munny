@@ -16,6 +16,13 @@
     display: flex;
     background-color: blueviolet;
     margin: 1em;
+    align-items: center;
+}
+
+.calculator-slot__text { 
+    height: fit-content;
+    color: white;
+    padding: 2em;
 }
 
 .current-amounts { 
@@ -79,5 +86,9 @@
 
     .calculator-user-info { 
         grid-template-columns: auto;
+    }
+
+    .calculator-slot { 
+        flex-direction: column;
     }
 }
